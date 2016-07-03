@@ -11,7 +11,7 @@ namespace CRM.Server
 {
     public class BaseServices<TEntity> : IBaseServices<TEntity> where TEntity : class
     {
-        private IBaseRepository<TEntity> baseDal;
+        protected IBaseRepository<TEntity> baseDal;
         public void AddOrUpdate(TEntity entity)
         {
             baseDal.AddOrUpdate(entity);

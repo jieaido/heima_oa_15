@@ -52,6 +52,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CRMContext.cs" />
+    <Compile Include="ModelView\sysFunction.cs" />
+    <Compile Include="ModelView\sysKeyValue.cs" />
+    <Compile Include="ModelView\sysMenus.cs" />
+    <Compile Include="ModelView\sysOrganStruct.cs" />
+    <Compile Include="ModelView\sysPermissList.cs" />
+    <Compile Include="ModelView\sysRole.cs" />
+    <Compile Include="ModelView\sysUserInfo.cs" />
+    <Compile Include="ModelView\sysUserInfo_Role.cs" />
+    <Compile Include="ModelView\wfProcess.cs" />
+    <Compile Include="ModelView\wfRequestForm.cs" />
+    <Compile Include="ModelView\wfWork.cs" />
+    <Compile Include="ModelView\wfWorkBranch.cs" />
+    <Compile Include="ModelView\wfWorkNodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sysFunction.cs" />
     <Compile Include="sysKeyValue.cs" />
@@ -71,9 +84,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ModelView\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using CRM.Site.App_Start;
 
 namespace CRM.Site
 {
@@ -16,6 +17,9 @@ namespace CRM.Site
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //利用autofac控制反转
+            AutoFacConfig.Register();
         }
     }
 }
