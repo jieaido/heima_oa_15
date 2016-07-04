@@ -1,0 +1,71 @@
+﻿@model CRM.Site.Areas.Admin.Models.LoginModelView
+@{
+    ViewBag.Title = "Login";
+}
+<style type="text/css">
+    
+</style>
+
+<div id="login">
+   @using (Ajax.BeginForm("Login", "Login", new AjaxOptions()
+   {
+       HttpMethod = "post",
+       Url = Url.Action("Login", "Login"),
+       OnBegin = "Begin",
+       OnSuccess = "success"
+
+   }))
+   {
+       @Html.AntiForgeryToken()
+       <h2>登陆</h2>
+       @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+       <div class="form-group">
+           @Html.LabelFor(m => m.LoginName, new {@class = " control-label"})
+           <div>
+               @Html.TextBoxFor(m => m.LoginName, new {@class = "form-control"})
+               @Html.ValidationMessageFor(m => m.LoginName, "", new {@class = "text-danger"})
+           </div>
+       </div>
+       <div class="form-group">
+           @Html.LabelFor(m => m.LoginPassword, new {@class = "control-label"})
+           <div>
+               @Html.PasswordFor(m => m.LoginPassword, new {@class = "form-control"})
+               @Html.ValidationMessageFor(m => m.LoginPassword, "", new {@class = "text-danger"})
+           </div>
+       </div>
+       <div class="form-group">
+           <div class="col-md-offset-2 col-md-10">
+
+           </div>
+       </div>
+       <div class="form-group">
+           <div>
+               <input type="submit" value="登录" class="btn btn-primary"/>
+           </div>
+       </div>
+   }
+
+
+</div>
+@section scripts{
+    <script type="text/javascript">
+    $(function() {
+        $.ligerDialog.open({
+            target: $("#login"),
+            width: 650,
+            allowClose: false,
+            title: "登陆"
+
+            
+            
+
+        });
+
+        
+    })
+
+    function Begin() {
+        confirm("asd")
+    }
+</script>
+}   
