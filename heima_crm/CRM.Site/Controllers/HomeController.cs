@@ -18,7 +18,7 @@ namespace CRM.Site.Controllers
         }
         public ActionResult Index()
         {
-           var sv=  _sysUserInfo.QueryWhere(u => u.uID < 10).Select(u => u.EntityMap());
+            var sv = _sysUserInfo.QueryOrderBy(x => true, x => x.uID).Select(s=>s.EntityMap());
             return View(sv);
         }
 
