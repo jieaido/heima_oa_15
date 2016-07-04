@@ -189,6 +189,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\CRM2.mdf" />
+    <Content Include="App_Data\CRM2_log.ldf">
+      <DependentUpon>CRM2.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -244,9 +248,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -256,6 +258,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CRM.Common\CRM.Common.csproj">
+      <Project>{fe4808e9-c367-420e-bef5-522007588220}</Project>
+      <Name>CRM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CRM.EntityMapping\CRM.EntityMapping.csproj">
+      <Project>{428672ee-b52b-4538-89a9-e97e12e7c4a5}</Project>
+      <Name>CRM.EntityMapping</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CRM.IRepository\CRM.IRepository.csproj">
       <Project>{fc7d8447-2656-4a6c-b348-13fa67551022}</Project>
       <Name>CRM.IRepository</Name>
@@ -263,6 +273,10 @@
     <ProjectReference Include="..\CRM.IServer\CRM.IServer.csproj">
       <Project>{1eb240aa-c529-4193-b5dc-bbbd05d15269}</Project>
       <Name>CRM.IServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CRM.Model\CRM.Model.csproj">
+      <Project>{8A4BB6B6-5B2A-46B4-8710-04A761101942}</Project>
+      <Name>CRM.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\CRM.Repository\CRM.Repository.csproj">
       <Project>{77dd3e92-c5e0-4385-a046-e1906269b179}</Project>

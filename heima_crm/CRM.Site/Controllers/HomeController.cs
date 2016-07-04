@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CRM.EntityMapping;
+using CRM.IServer;
 
 namespace CRM.Site.Controllers
 {
     public class HomeController : Controller
     {
+        private IsysUserInfoServices _sysUserInfo;
+
+        public HomeController(IsysUserInfoServices sysUserInfo )
+        {
+            _sysUserInfo = sysUserInfo;
+        }
         public ActionResult Index()
         {
-            return View();
+           var sv=  _sysUserInfo.QueryWhere(u => u.uID < 10).Select(u => u.EntityMap());
+            return View(sv);
         }
 
         public ActionResult About()
