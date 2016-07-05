@@ -1,31 +1,31 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
+    @*<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />*@
+    @*<meta charset="utf-8" />*@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
+    @*<title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>*@
   
     @Styles.Render("~/Content/css")
     <link href="~/Scripts/LigerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
- 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 应用程序</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/jqueryval")
-        <script src="~/Scripts/LigerUI/lib/ligerUI/js/core/base.js"></script>
-    <script src="~/Scripts/LigerUI/lib/ligerUI/js/ligerui.all.js"></script>
-    @RenderSection("scripts", required: false)
+
+<body>
+
+
+    @RenderBody()
+  
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/LigerUI/lib/ligerUI/js/core/base.js"></script>
+<script src="~/Scripts/LigerUI/lib/ligerUI/js/ligerui.all.js"></script>
+@RenderSection("scripts", required: false)
 </body>
 </html>

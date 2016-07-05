@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using CRM.Common;
 using CRM.IServer;
 using CRM.Site.Areas.Admin.Models;
@@ -22,6 +23,7 @@ namespace CRM.Site.Areas.Admin.Controllers
             base.userinfoSer = userInfo;
         }
         // GET: Admin/Login
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
@@ -29,11 +31,33 @@ namespace CRM.Site.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Login(LoginModelView lmv)
         {
-            if (!ModelState.IsValid)
+
+            try
             {
-                
+                if (!ModelState.IsValid)
+                {
+                    return AjaxFail("验证错误");
+                }
+                if (Session[Keys.Vcode].ToString() == null || !string.Equals(Session[Keys.Vcode].ToString(), lmv.Vcode, StringComparison.OrdinalIgnoreCase))
+                {
+                   return  AjaxFail("验证码错误");
+                }
+                var userinfo =
+                    userinfoSer.QueryWhere(u => u.uLoginName == lmv.LoginName && u.uLoginPWD == lmv.LoginPassword)
+                        .FirstOrDefault();
+                if ( userinfo== null)
+                {
+                 return   AjaxFail("用户名密码错误");
+                }
+                Session[Keys.LoginUserinfo] = userinfo;
+                return AjaxSuccess("登陆成功");
             }
-            return null;
+            catch (Exception exception)
+            {
+                return AjaxError(exception);
+            }
+            return View();
+
         }
         public ActionResult Vcode()
         {

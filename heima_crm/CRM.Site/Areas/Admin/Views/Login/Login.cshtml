@@ -7,71 +7,106 @@
 </style>
 
 <div id="login">
-   @using (Ajax.BeginForm("Login", "Login", new AjaxOptions()
-   {
-       HttpMethod = "post",
-       Url = Url.Action("Login", "Login"),
-       OnBegin = "Begin",
-       OnSuccess = "success"
+    @using (Ajax.BeginForm("Login", "Login", new AjaxOptions()
+    {
+        HttpMethod = "Post",
+        Url = Url.Action("Login", "Login"),
+        OnBegin = "Begin",
+        OnSuccess = "success"
 
-   }))
-   {
-       @Html.AntiForgeryToken()
-       <h2>登陆</h2>
-       @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-       <div class="form-group">
-           @Html.LabelFor(m => m.LoginName, new {@class = " control-label"})
-           <div>
-               @Html.TextBoxFor(m => m.LoginName, new {@class = "form-control"})
-               @Html.ValidationMessageFor(m => m.LoginName, "", new {@class = "text-danger"})
-           </div>
-       </div>
-       <div class="form-group">
-           @Html.LabelFor(m => m.LoginPassword, new {@class = "control-label"})
-           <div>
-               @Html.PasswordFor(m => m.LoginPassword, new {@class = "form-control"})
-               @Html.ValidationMessageFor(m => m.LoginPassword, "", new {@class = "text-danger"})
-           </div>
-       </div>
-       <div class="form-group">
-           @Html.LabelFor(m => m.Vcode, new { @class = "control-label" })
-           <div>
-               <div class="form-horizontal">
+    }, new {id = "loginForm1"}))
+    {
+       @*@Html.AntiForgeryToken()*@
+        <h2>登陆</h2>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        <div class="form-group">
+            @Html.LabelFor(m => m.LoginName, new {@class = " control-label"})
+            <div>
+                @Html.TextBoxFor(m => m.LoginName, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.LoginName, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.LoginPassword, new {@class = "control-label"})
+            <div>
+                @Html.PasswordFor(m => m.LoginPassword, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.LoginPassword, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Vcode, new {@class = "control-label"})
+            <div>
+                <div class="form-horizontal">
 
-                   @Html.TextBoxFor(m => m.Vcode, new {@class = "form-control"}) 
-                   <img src="@Url.Action("Vcode","Login")" height="45px" width="250px" />
-                   @Html.ValidationMessageFor(m => m.Vcode, "", new { @class = "text-danger" })
-               </div>
-           </div>
-       </div>
-       <div class="form-group">
-           <div>
-               <input type="submit" value="登录" class="btn btn-primary"/>
-           </div>
-       </div>
-   }
+                    @Html.TextBoxFor(m => m.Vcode, new {@class = "form-control"})
+                    @*放上面变手形状鼠标 *@
+                    <img src="@Url.Action("Vcode", "Login")" id="imgvcode" onclick="ResetVcode()" height="45px" width="250px" style="cursor: pointer"/>
+                    @Html.ValidationMessageFor(m => m.Vcode, "", new {@class = "text-danger"})
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <input type="submit" value="登录" class="btn btn-primary"/>
+            </div>
+        </div>
+    }
 
 
 </div>
-@section scripts{
-    <script type="text/javascript">
-    $(function() {
-        $.ligerDialog.open({
-            target: $("#login"),
-            width: 450,
-            allowClose: false,
-            title: "登陆"
 
-            
-            
+@section scripts{
+<script type="text/javascript">
+        function success(ajaxMsg) {
+            alert(ajaxMsg.msg);
+            if (ajaxMsg.staus == 0) {
+                alert(ajaxMsg.msg);
+                window.location = '@Url.Action("Index","AdminHome")';
+            }
+        }
+        function Begin() {
+
+        }
+</script>
+    <script type="text/javascript">
+        $(function() {
+            $.ligerDialog.open({
+                target: $("#login"),
+                width: 450,
+                allowClose: false,
+                title: "登陆",
+                buttons: [
+                    {
+                        text: "登陆",
+                        onclick: function() {
+                            $("#loginForm1").submit();
+
+                        },
+                        cls: "l-dialog-btn-highlight"
+                    },
+                    {
+                        text: "重置",
+                        onclick: function() {
+                            document.getElementById("loginForm1").reset();
+
+                        }
+                    }
+                ],
+
+
+            });
+
 
         });
 
-        
-    })
+        function ResetVcode() {
+            //加随机数防止生成缓存，生成后它就不会变化了
+            $("#imgvcode").attr("src", '@Url.Action("Vcode", "Login")' + "?rid=" + Math.random());
+        }
 
-    function Begin() {
-        confirm("asd")
-    }
-</script>
+
+    </script>
+
+
 }   
+

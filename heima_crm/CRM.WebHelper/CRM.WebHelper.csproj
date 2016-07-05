@@ -76,6 +76,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CRM.Common\CRM.Common.csproj">
+      <Project>{FE4808E9-C367-420E-BEF5-522007588220}</Project>
+      <Name>CRM.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CRM.IServer\CRM.IServer.csproj">
       <Project>{1eb240aa-c529-4193-b5dc-bbbd05d15269}</Project>
       <Name>CRM.IServer</Name>

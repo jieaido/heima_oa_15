@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using CRM.Common;
 using CRM.IServer;
 
 
@@ -25,5 +26,17 @@ namespace CRM.WebHelper
         protected IwfWorkBranchServices workbranchSer;
         protected IwfWorkNodesServices worknodesSer;
 
+        protected ActionResult AjaxSuccess(string message)
+        {
+            return Json(new {staus = (int)AjaxResultEnums.Success, msg = message });
+        }
+        protected ActionResult AjaxFail(string message)
+        {
+            return Json(new { staus = (int)AjaxResultEnums.Fail, msg = message });
+        }
+        protected ActionResult AjaxError(Exception ex)
+        {
+            return Json(new { staus = (int)AjaxResultEnums.Fail, msg = ex.Message });
+        }
     }
 }
