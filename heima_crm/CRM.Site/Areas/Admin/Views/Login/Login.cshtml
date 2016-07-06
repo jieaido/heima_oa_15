@@ -58,10 +58,16 @@
 @section scripts{
 <script type="text/javascript">
         function success(ajaxMsg) {
-            alert(ajaxMsg.msg);
+          
+            ResetVcode();
             if (ajaxMsg.staus == 0) {
-                alert(ajaxMsg.msg);
                 window.location = '@Url.Action("Index","AdminHome")';
+            }
+            if (ajaxMsg.staus==1) {
+                $.ligerDialog.warn(ajaxMsg.msg);
+            }
+            if (ajaxMsg.staus==2) {
+                $.ligerDialog.error(ajaxMsg.msg);
             }
         }
         function Begin() {

@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -22,12 +23,14 @@ namespace CRM.Site.Areas.Admin.Controllers
         {
             base.userinfoSer = userInfo;
         }
+
         // GET: Admin/Login
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(LoginModelView lmv)
         {
@@ -38,16 +41,18 @@ namespace CRM.Site.Areas.Admin.Controllers
                 {
                     return AjaxFail("验证错误");
                 }
-                if (Session[Keys.Vcode].ToString() == null || !string.Equals(Session[Keys.Vcode].ToString(), lmv.Vcode, StringComparison.OrdinalIgnoreCase))
+                if (Session[Keys.Vcode].ToString() == null ||
+                    !string.Equals(Session[Keys.Vcode].ToString(), lmv.Vcode, StringComparison.OrdinalIgnoreCase))
                 {
-                   return  AjaxFail("验证码错误");
+                    return AjaxFail("验证码错误");
                 }
+                string md5Pwd = Units.MD5Encryt(lmv.LoginPassword);
                 var userinfo =
-                    userinfoSer.QueryWhere(u => u.uLoginName == lmv.LoginName && u.uLoginPWD == lmv.LoginPassword)
+                    userinfoSer.QueryWhere(u => u.uLoginName == lmv.LoginName && u.uLoginPWD == md5Pwd)
                         .FirstOrDefault();
-                if ( userinfo== null)
+                if (userinfo == null)
                 {
-                 return   AjaxFail("用户名密码错误");
+                    return AjaxFail("用户名密码错误");
                 }
                 Session[Keys.LoginUserinfo] = userinfo;
                 return AjaxSuccess("登陆成功");
@@ -59,6 +64,7 @@ namespace CRM.Site.Areas.Admin.Controllers
             return View();
 
         }
+
         public ActionResult Vcode()
         {
             string vcode = GetVcode(4);
@@ -70,25 +76,26 @@ namespace CRM.Site.Areas.Admin.Controllers
                 InstalledFontCollection ifc = new InstalledFontCollection();
 
                 g.DrawString(vcode, new Font(ifc.Families[2], 20), new SolidBrush(Color.Teal), 4, 4);
-               
+
                 using (MemoryStream ms = new MemoryStream())
                 {
                     img.Save(ms, ImageFormat.Png);
                     bytes = ms.ToArray();
-                };
-               
+                }
+                ;
+
 
             }
-            
-          
-            return File(bytes,"image/png");
+
+
+            return File(bytes, "image/png");
         }
 
-        private string GetVcode(int p  )
+        private string GetVcode(int p)
         {
-            Random rand=new Random();
+            Random rand = new Random();
             string str = "ABCDEFGHKLMNQPZXRYW234578";
-            StringBuilder result=new StringBuilder();
+            StringBuilder result = new StringBuilder();
             for (int i = 0; i < p; i++)
             {
                 result.Append(str[rand.Next(str.Length)]);
@@ -96,5 +103,7 @@ namespace CRM.Site.Areas.Admin.Controllers
             return result.ToString();
 
         }
+
+       
     }
 }
