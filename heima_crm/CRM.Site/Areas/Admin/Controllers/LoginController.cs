@@ -14,9 +14,11 @@ using CRM.Common;
 using CRM.IServer;
 using CRM.Site.Areas.Admin.Models;
 using CRM.WebHelper;
+using CRM.WebHelper.attrs;
 
 namespace CRM.Site.Areas.Admin.Controllers
 {
+    [Skiploginattr]
     public class LoginController : BaseController
     {
         public LoginController(IsysUserInfoServices userInfo)
@@ -30,7 +32,11 @@ namespace CRM.Site.Areas.Admin.Controllers
         {
             return View();
         }
-
+     
+        public ActionResult Nologin()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Login(LoginModelView lmv)
         {

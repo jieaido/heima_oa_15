@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Nologin";
+}
+
+<h2>Nologin</h2>
+@section scripts{
+    <script type="text/javascript">
+    $(function() {
+        $.ligerDialog.waitting('请登录');
+        setTimeout(function() {
+            $.ligerDialog.closeWaitting();
+            window.location = '@Url.Action("Login","Login",new {area="Admin"})';
+        }, 2000);
+
+
+
+
+    })
+</script>
+}
