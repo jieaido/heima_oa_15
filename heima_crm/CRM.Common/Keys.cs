@@ -8,7 +8,9 @@ namespace CRM.Common
 {
     public class Keys
     {
+        public const string AutofacIContainer = "CRM_AutofacIContainer";
         public const string Vcode = "CRM_VCode";
         public const string LoginUserinfo = "CRM_LoginUserinfo";
+        public const string IsRemember = "CRM_IsRemember";
     }
 }

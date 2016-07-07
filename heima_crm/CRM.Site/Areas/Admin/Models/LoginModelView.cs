@@ -18,5 +18,8 @@ namespace CRM.Site.Areas.Admin.Models
         [DisplayName("验证码")]
         [Required(ErrorMessage = "验证码不能为空")]
         public string Vcode { get; set; }   
+        [DisplayName("记住三天")]
+        public bool IsRemember { get; set; }
+
     }
 }

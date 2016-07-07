@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -18,7 +19,7 @@ using CRM.WebHelper.attrs;
 
 namespace CRM.Site.Areas.Admin.Controllers
 {
-    [Skiploginattr]
+    [SkipLogin]
     public class LoginController : BaseController
     {
         public LoginController(IsysUserInfoServices userInfo)
@@ -59,6 +60,19 @@ namespace CRM.Site.Areas.Admin.Controllers
                 if (userinfo == null)
                 {
                     return AjaxFail("用户名密码错误");
+                }
+                if (lmv.IsRemember)
+                {
+                    HttpCookie cookie=new HttpCookie(Keys.IsRemember,userinfo.uID.ToString());
+                    cookie.Expires = DateTime.Now.AddDays(3);
+                    Response.Cookies.Add(cookie);
+
+                }
+                else
+                {
+                    HttpCookie cookie = new HttpCookie(Keys.IsRemember, "");
+                    cookie.Expires = DateTime.Now.AddDays(-3);
+                    Response.Cookies.Add(cookie);
                 }
                 Session[Keys.LoginUserinfo] = userinfo;
                 return AjaxSuccess("登陆成功");

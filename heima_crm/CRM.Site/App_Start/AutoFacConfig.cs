@@ -7,6 +7,9 @@ using System.Web.Mvc;
 using Autofac;
 using Autofac.Core;
 using Autofac.Integration.Mvc;
+using CRM.Common;
+using CRM.IServer;
+using CRM.WebHelper;
 
 namespace CRM.Site.App_Start
 {
@@ -31,6 +34,9 @@ namespace CRM.Site.App_Start
             Builder.RegisterTypes(serverName.GetTypes()).AsImplementedInterfaces();
             //创建autofac容器
             var c = Builder.Build();
+            CacheMng.SetData(Keys.AutofacIContainer,c);
+
+           
             //将mvc的对象实例由automvc来创建
             DependencyResolver.SetResolver(new AutofacDependencyResolver(c));
         }

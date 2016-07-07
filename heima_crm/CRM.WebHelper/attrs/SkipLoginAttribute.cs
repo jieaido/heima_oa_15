@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRM.WebHelper.attrs
 {[AttributeUsage(AttributeTargets.Class|AttributeTargets.Method,AllowMultiple = false)]
-    public class Skiploginattr:Attribute
+    public class SkipLoginAttribute : Attribute
     {
     }
 }
