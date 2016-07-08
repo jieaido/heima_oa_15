@@ -63,6 +63,7 @@ namespace CRM.Site.Areas.Admin.Controllers
                 }
                 if (lmv.IsRemember)
                 {
+                    //todo  id需要对称加密,获取时在对称解密
                     HttpCookie cookie=new HttpCookie(Keys.IsRemember,userinfo.uID.ToString());
                     cookie.Expires = DateTime.Now.AddDays(3);
                     Response.Cookies.Add(cookie);
@@ -81,6 +82,7 @@ namespace CRM.Site.Areas.Admin.Controllers
             {
                 return AjaxError(exception);
             }
+           
             return View();
 
         }

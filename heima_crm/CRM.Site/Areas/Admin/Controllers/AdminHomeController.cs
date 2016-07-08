@@ -13,8 +13,16 @@ namespace CRM.Site.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
-            var loginuserinfo = Session[Keys.LoginUserinfo] as sysUserInfo;
-            return Content(loginuserinfo.uRealName);
+            if (Session[Keys.LoginUserinfo]==null)
+            {
+                return RedirectToRoute(new {Controller = "Home", Action = "Index"});
+            }
+            else
+            {
+              //  var loginuserinfo = Session[Keys.LoginUserinfo] as sysUserInfo;
+                return  View();
+            }
+           
         }
     }
 }

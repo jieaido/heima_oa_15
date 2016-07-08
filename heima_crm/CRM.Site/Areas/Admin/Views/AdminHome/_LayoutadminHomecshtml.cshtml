@@ -1,0 +1,83 @@
+﻿@using CRM.Common
+@using CRM.IServer
+@using CRM.Model
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewBag.Title</title>
+</head>
+
+<body>
+<div>
+    <div id="layout1">
+
+        <div position="top">
+            <nav class="navbar navbar-fixed-top" style="height: 50px">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">CRM 项目管理 </a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li style="color:red">
+                                <a class="navbar-brand" href="#">
+                                     <img src="~/Content/img/user_24px_1138889_easyicon.net.ico" style="height: 25px"/>
+                                    <a href="#">@{
+                                                    var user = Session[Keys.LoginUserinfo] as sysUserInfo;
+                                       @:@user?.uRealName
+                                    } </a>
+                                </a>
+                              
+                            </li>
+
+                            <li>
+                                <a href="#">Settings</a>
+                            </li>
+                            <li>
+                                <a href="#">Profile</a>
+                            </li>
+                            <li>
+                                <a href="#">Help</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+
+            @RenderSection("Top", false)
+        </div>
+        <div position="left">@RenderSection("left", false)</div>
+        <div position="center">@RenderBody()</div>
+        @*<div position="right">you</div>
+        <div position="bottom">zuo</div>*@
+    </div>
+
+
+</div>
+</body>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/LigerUI/lib/ligerUI/js/core/base.js"></script>
+<script src="~/Scripts/LigerUI/lib/ligerUI/js/ligerui.all.js"></script>
+<script type="text/javascript">
+
+
+    $(function() {
+        $("#layout1").ligerLayout(
+            {
+                leftWidth: 200,
+                topHeight: 50
+            }
+        );
+    })
+</script>
+
+
+@RenderSection("scripts", false)
+
+</html>
