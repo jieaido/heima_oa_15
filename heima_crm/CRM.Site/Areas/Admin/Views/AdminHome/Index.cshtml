@@ -34,10 +34,10 @@
                 </div>
             </nav>
 
-          
+
         </div>
         <div position="left">
-        <div id="accordion1" height="300">
+            <div id="accordion1" >
                 @{
                     Node nodes = ViewBag.menus;
                     foreach (var node in nodes.ChildNodes)
@@ -46,25 +46,25 @@
                             <ul>
                                 @foreach (var nn in node.ChildNodes)
                                 {
-                                <li><a href='@nn.Nodeitem.mUrl'><i class="@nn.Nodeitem.mPicname"></i>@nn.Nodeitem.mName</a></li>
+                                    <li>
+                                        <a href="#" onclick="addtab(@nn.Nodeitem.mID,'@nn.Nodeitem.mName','@nn.Nodeitem.mUrl')">
+                                            <i class="@nn.Nodeitem.mPicname"></i>@nn.Nodeitem.mName</a>
+                                    </li>
                                 }
                             </ul>
                         </div>
                     }
-                       
                 }
-
-  
-
-            
-                <div title="功能列表2"></div>
-                <div title="功能列表3"></div>
 
             </div>
 
         </div>
-        <div position="center"></div>
-       
+        <div position="center" title="工作区">
+            <div id="tab1" style="height: 100%;border:1px solid #A3C0E8; ">
+
+            </div>
+        </div>
+
     </div>
 
 
@@ -73,18 +73,33 @@
 @section scripts{
     <script type="text/javascript">
 
-
-    $(function() {
-        $("#layout1").ligerLayout(
+        var navtab;
+        $(function() {
+            $("#layout1").ligerLayout(
+                {
+                    leftWidth: 200,
+                    topheight: 30
+                }
+            );
+            $("#accordion1").ligerAccordion(
             {
-                leftWidth: 200,
-                topheight:30
-            }
-        );
-        $("#accordion1").ligerAccordion(
-        {
-            height:300
-        })
-    })
-</script>
+               
+            });
+            navtab= $("#tab1").ligerTab();
+
+
+        });
+
+        function addtab(m_tabid,m_title,m_url) {
+            navtab.addTabItem(
+                {
+                    tabid:m_tabid,
+                    url: m_url ,
+                    text:m_title
+                }
+);
+            
+        }
+       
+    </script>
 }
