@@ -87,6 +87,14 @@ namespace CRM.Site.Areas.Admin.Controllers
 
         }
 
+        public ActionResult LoginOut()
+        {
+            Session[Keys.LoginUserinfo] = null;
+            HttpCookie cookie = new HttpCookie(Keys.IsRemember, "");
+            cookie.Expires = DateTime.Now.AddDays(-3);
+            Response.Cookies.Add(cookie);
+            return RedirectToAction("Login");
+        }
         public ActionResult Vcode()
         {
             string vcode = GetVcode(4);

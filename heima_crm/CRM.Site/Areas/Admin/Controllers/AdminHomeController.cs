@@ -17,7 +17,8 @@ namespace CRM.Site.Areas.Admin.Controllers
             {
                 return RedirectToRoute(new {Controller = "Home", Action = "Index"});
             }
-            else
+
+            var ss = Session[Keys.LoginUserinfo];
             {
               //  var loginuserinfo = Session[Keys.LoginUserinfo] as sysUserInfo;
                 return  View();

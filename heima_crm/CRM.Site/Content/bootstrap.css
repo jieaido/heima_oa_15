@@ -3893,7 +3893,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .nav-tabs.nav-justified > li {
-  float: none;
+  float:none;
 }
 
 .nav-tabs.nav-justified > li > a {
