@@ -1,8 +1,90 @@
-﻿
+﻿@using CRM.WebHelper
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/AdminHome/_LayoutadminHomecshtml.cshtml";
 }
 
-<h2>Index</h2>
+<div>
+    <div id="layout1">
 
+        <div position="top">
+            <nav class="navbar navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">CRM 项目管理 </a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="#"> @UserManger.GetUserInfoName().uRealName </a>
+
+                            </li>
+                            <li>
+                                <a href='@Url.Action("LoginOut", "Login")'>登出</a>
+                            </li>
+
+                        </ul>
+                        <a class="navbar-brand navbar-right " href="#">
+                            <img alt="Brand" src="~/Content/img/user_24px_1138889_easyicon.net.ico" style="height: 25px"/>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+          
+        </div>
+        <div position="left">
+        <div id="accordion1" height="300">
+                @{
+                    Node nodes = ViewBag.menus;
+                    foreach (var node in nodes.ChildNodes)
+                    {
+                        <div title="@node.Nodeitem.mName" style="font-size: 16px; text-align: center; color: red">
+                            <ul>
+                                @foreach (var nn in node.ChildNodes)
+                                {
+                                <li><a href='@nn.Nodeitem.mUrl'><i class="@nn.Nodeitem.mPicname"></i>@nn.Nodeitem.mName</a></li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                       
+                }
+
+  
+
+            
+                <div title="功能列表2"></div>
+                <div title="功能列表3"></div>
+
+            </div>
+
+        </div>
+        <div position="center"></div>
+       
+    </div>
+
+
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+
+    $(function() {
+        $("#layout1").ligerLayout(
+            {
+                leftWidth: 200,
+                topheight:30
+            }
+        );
+        $("#accordion1").ligerAccordion(
+        {
+            height:300
+        })
+    })
+</script>
+}

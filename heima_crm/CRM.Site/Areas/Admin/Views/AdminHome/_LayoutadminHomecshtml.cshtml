@@ -11,50 +11,7 @@
 </head>
 
 <body>
-<div>
-    <div id="layout1">
-
-        <div position="top">
-            <nav class="navbar navbar-fixed-top" style="height: 50px">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">CRM 项目管理 </a>
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                       
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="#"> @UserManger.GetUserInfoName().uRealName </a>
-                          
-                            </li>
-                            <li>
-                                <a href='@Url.Action("LoginOut", "Login")'>登出</a>
-                            </li>
-                            <li>
-                                <a href="#">Profile</a>
-                            </li>
-                            <li>
-                                <a href="#">Help</a>
-                            </li>
-                        </ul>
-                        <a class="navbar-brand navbar-right " href="#">
-                            <img alt="Brand" src="~/Content/img/user_24px_1138889_easyicon.net.ico" style="height: 25px" />
-                        </a>
-                    </div>
-                </div>
-            </nav>
-
-            @RenderSection("Top", false)
-        </div>
-        <div position="left">@RenderSection("left", false)</div>
-        <div position="center">@RenderBody()</div>
-        @*<div position="right">you</div>
-        <div position="bottom">zuo</div>*@
-    </div>
-
-
-</div>
+@RenderBody()
 </body>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
@@ -62,18 +19,7 @@
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 <script src="~/Scripts/LigerUI/lib/ligerUI/js/core/base.js"></script>
 <script src="~/Scripts/LigerUI/lib/ligerUI/js/ligerui.all.js"></script>
-<script type="text/javascript">
 
-
-    $(function() {
-        $("#layout1").ligerLayout(
-            {
-                leftWidth: 200,
-                topHeight: 50
-            }
-        );
-    })
-</script>
 
 
 @RenderSection("scripts", false)
