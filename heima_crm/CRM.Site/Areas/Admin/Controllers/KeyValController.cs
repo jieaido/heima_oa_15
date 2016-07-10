@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CRM.IServer;
+using CRM.Model;
 using CRM.WebHelper;
 
 namespace CRM.Site.Areas.Admin.Controllers
@@ -21,7 +23,23 @@ namespace CRM.Site.Areas.Admin.Controllers
         }
         public ActionResult GetKeyVallist()
         {
-            var query = keyvalSer.QueryOrderBy(m => true, m => m.KID);
+            string quertstr = HttpContext.Request["KName"];
+            int pagesize = Convert.ToInt32(HttpContext.Request["pagesize"]);
+            int pageindex= Convert.ToInt32(HttpContext.Request["page"]);
+            int rowscout;
+            IEnumerable<sysKeyValue> query;
+            if (quertstr!=null)
+            {
+               
+                query = keyvalSer.QueryByPage(m => m.KName.Contains(quertstr), m => m.KType, pagesize, pageindex,
+                    out rowscout);
+            }
+            else
+            {
+                query = keyvalSer.QueryByPage(m =>true, m => m.KType, pagesize, pageindex,
+                    out rowscout);
+            }
+          
             //todo 一定记得select ，要不然报循环引用错误
             var jsondata = from sysKeyValue in query
                            select new
@@ -33,7 +51,8 @@ namespace CRM.Site.Areas.Admin.Controllers
                            };
 
 
-            return Json(new { Rows = jsondata, Total = "12" },JsonRequestBehavior.AllowGet);
+            return Json(new { Rows = jsondata, Total = rowscout }
+            );
         }
     }
 }

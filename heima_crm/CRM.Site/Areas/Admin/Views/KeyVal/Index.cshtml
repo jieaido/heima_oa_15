@@ -38,11 +38,18 @@
                     { display: '字典名称', name: 'KName', width: 50, align: 'left' },
                     { display: '字典值', name: 'Kvalue' }
                 ],
-                pageSize: 3,
-                url:'@Url.Action("GetKeyVallist","KeyVal")',
-                
+                pageSize: 10,
+                url: '@Url.Action("GetKeyVallist","KeyVal")',
+                parms: [
+                {
+                   name:" KName",value:$("#kname").val()
+                }],
+//这个高度也必须写。要不然不出滚动条
+height:'100%',
+                method: "post",
+                isScroll :true,
                 groupColumnName: 'KType',
-                groupColumnDisplay: '字典类型'
+                groupColumnDisplay: '字典类型'  
             });
         }
    )
