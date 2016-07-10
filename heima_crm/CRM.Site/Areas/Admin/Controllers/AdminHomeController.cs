@@ -15,6 +15,7 @@ namespace CRM.Site.Areas.Admin.Controllers
         public AdminHomeController(IsysMenusServices isysMenusServices)
         {
             base.menuSer = isysMenusServices;
+           
         }
         // GET: Admin/Home
         public ActionResult Index()
@@ -32,6 +33,7 @@ namespace CRM.Site.Areas.Admin.Controllers
            
         }
 
+        
         public Node GetMenus()
         {
            Node Nodes=new Node();
