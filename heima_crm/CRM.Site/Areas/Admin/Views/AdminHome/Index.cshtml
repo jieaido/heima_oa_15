@@ -47,7 +47,7 @@
                                 @foreach (var nn in node.ChildNodes)
                                 {
                                     <li>
-                                        <a href="#" onclick="addtab(@nn.Nodeitem.mID,'@nn.Nodeitem.mName','@nn.Nodeitem.mUrl')">
+                                        <a href="#" onclick="addtab('@nn.Nodeitem.mID','@nn.Nodeitem.mName','@nn.Nodeitem.mUrl')">
                                             <i class="@nn.Nodeitem.mPicname"></i>@nn.Nodeitem.mName</a>
                                     </li>
                                 }
@@ -59,8 +59,8 @@
             </div>
 
         </div>
-        <div position="center" title="工作区">
-            <div id="tab1" style="height: 100%;border:1px solid #A3C0E8; ">
+        <div position="center" title="工作区" >
+            <div id="tab1" style="border: 1px solid #A3C0E8; ">
 
             </div>
         </div>
@@ -78,26 +78,36 @@
             $("#layout1").ligerLayout(
                 {
                     leftWidth: 200,
-                    topheight: 30
+                    topheight: 30,
+                   // centerWidth :'100%'
                 }
             );
             $("#accordion1").ligerAccordion(
             {
                
             });
-            navtab= $("#tab1").ligerTab();
+//todo 操，这个高度没有设定让我整了半天，显示的都是一半数据
+            navtab= $("#tab1").ligerTab({
+                height: '100%',
+//centerWidth:'100%'
+
+            });
 
 
         });
 
-        function addtab(m_tabid,m_title,m_url) {
-            navtab.addTabItem(
+        function addtab(m_tabid, m_title, m_url) {
+            
+           var g=  navtab.addTabItem(
                 {
                     tabid:m_tabid,
                     url: m_url ,
-                    text:m_title
+                    text: m_title
+                 
                 }
-);
+
+                );
+          
             
         }
        
