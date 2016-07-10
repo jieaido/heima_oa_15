@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,6 +21,23 @@ namespace CRM.Site.Areas.Admin.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Add([Bind(Include = "KType,KName,Kvalue,KRemark")]sysKeyValue model)
+        {
+            if (ModelState.IsValid)
+            {
+                return AjaxFail("实体验证失败");
+            }
+            model.ParentID = 0;
+            keyvalSer.AddOrUpdate(model);
+            keyvalSer.SaveChanges();
+            return base.AjaxSuccess("good");
         }
         public ActionResult GetKeyVallist()
         {
