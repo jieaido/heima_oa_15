@@ -29,57 +29,58 @@
 
 
     @section scripts{
-    <script type="text/javascript">
-        $(function() {
-                $("#maingrid4").ligerGrid({
-                    columns: [
-                        { display: '主键编号', name: 'KID', align: 'left', width: 120 },
-                        { display: '字典类型', name: 'KType', minWidth: 60 },
-                        { display: '字典名称', name: 'KName', width: 50, align: 'left' },
-                        { display: '字典值', name: 'Kvalue' }
-                    ],
-                    pageSize: 10,
-                    url: '@Url.Action("GetKeyVallist","KeyVal")',
-                    parms: [
-                        {
-                            name: " KName",
-                            value: $("#kname").val()
-                        }
-                    ],
+        <script type="text/javascript">
+            var gridd;
+            $(function() {
+                    gridd=  $("#maingrid4").ligerGrid({
+                        columns: [
+                            { display: '主键编号', name: 'KID', align: 'left', width: 120 },
+                            { display: '字典类型', name: 'KType', minWidth: 60 },
+                            { display: '字典名称', name: 'KName', width: 50, align: 'left' },
+                            { display: '字典值', name: 'Kvalue' }
+                        ],
+                        pageSize: 10,
+                        url: '@Url.Action("GetKeyVallist","KeyVal")',
+                        parms: [
+                            {
+                                name: " KName",
+                                value: $("#kname").val()
+                            }
+                        ],
 //这个高度也必须写。要不然不出滚动条
-                    height: '100%',
-                    method: "post",
-                    isScroll: true,
-                    groupColumnName: 'KType',
-                    groupColumnDisplay: '字典类型',
-                    toolbar: {
-                        items: [
-                            { text: '增加', click: add, icon: 'add' },
-                            { line: true },
-                            { text: '修改', click: edit, icon: 'modify' },
-                            { line: true },
-                            { text: '删除', click: del, img: '../../../lib/ligerUI/skins/icons/delete.gif' }
-                        ]
-                    }
+                        height: '100%',
+                        method: "post",
+                        isScroll: true,
+                        groupColumnName: 'KType',
+                        groupColumnDisplay: '字典类型',
+                        toolbar: {
+                            items: [
+                                { text: '增加', click: add, icon: 'add' },
+                                { line: true },
+                                { text: '修改', click: edit, icon: 'modify' },
+                                { line: true },
+                                { text: '删除', click: del, img: '../../../lib/ligerUI/skins/icons/delete.gif' }
+                            ]
+                        }
+                    });
+                }
+            );
+            var win;
+            function add()
+            {
+                win= $.ligerDialog.open({
+                    height: 450,
+                    width:500,
+                    isResize: true,
+                    url: '@Url.Action("Add")'
                 });
+            }function edit()
+            {
+                $.ligerDialog.open({ height: 200, url: '@Url.' });
+            }function del()
+            {
+                $.ligerDialog.open({ height: 200, url: '@Url.' });
             }
-        );
-        var win;
-        function add()
-        {
-            win= $.ligerDialog.open({
-                height: 450,
-width:500,
-isResize: true,
-                url: '@Url.Action("Add")'
-            });
-        }function edit()
-        {
-            $.ligerDialog.open({ height: 200, url: '@Url.' });
-        }function del()
-        {
-            $.ligerDialog.open({ height: 200, url: '@Url.' });
-        }
 
-    </script>
+        </script>
     }

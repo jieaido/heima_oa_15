@@ -30,7 +30,7 @@ namespace CRM.Site.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Add([Bind(Include = "KType,KName,Kvalue,KRemark")]sysKeyValue model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return AjaxFail("实体验证失败");
             }

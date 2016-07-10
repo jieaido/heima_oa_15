@@ -40,7 +40,7 @@
 
                     @Html.TextBoxFor(m => m.Vcode, new {@class = "form-control"})
                     @*放上面变手形状鼠标 *@
-                    <img src="@Url.Action("Vcode", "Login")" id="imgvcode" onclick="ResetVcode()" height="45px" width="250px" style="cursor: pointer"/>
+                    <img src="@Url.Action("Vcode", "Login")" id="imgvcode" onclick="ResetVcode()" height="45" width="250" style="cursor: pointer"/>
                     @Html.ValidationMessageFor(m => m.Vcode, "", new {@class = "text-danger"})
                 </div>
             </div>
