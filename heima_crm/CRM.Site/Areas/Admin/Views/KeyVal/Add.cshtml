@@ -4,7 +4,31 @@
 @{
     ViewBag.Title = "Add";
 }
+<link href="~/Scripts/LigerUI/lib/ligerUI/skins/Aqua/css/ligerui-form.css" rel="stylesheet" />
+<style type="text/css">
+    body {
+        font-size: 12px;
+    }
 
+    .l-table-edit {
+    }
+
+    .l-table-edit-td {
+        padding: 4px;
+    }
+
+    .l-button-submit, .l-button-reset {
+        width: 80px;
+        float: left;
+        margin-left: 10px;
+        padding-bottom: 2px;
+    }
+
+    .l-verify-tip {
+        left: 230px;
+        top: 120px;
+    }
+</style>
 <h2>Add</h2>
 <div style="margin-left: 20px"/>
 
@@ -16,80 +40,123 @@
         OnBegin = "Begin",
         OnSuccess = "success"
 
-    },new {@class="liger-form"}))
+    },new {@class="l-form",id="form1"}))
     {
         @Html.AntiForgeryToken()
-
-
-        
-
-
-
-
-       
-           <div  class="form-control">
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.KType, new { htmlAttributes = new { @class = "form-control" } })
+        <table cellpadding="0" cellspacing="0"    style="padding: 10px" class="l-table-edit">
+            <tr>
+                <td align="right" class="l-table-edit-td">名字:</td>
+                <td align="left" class="l-table-edit-td">
+                   
+                    @Html.EditorFor(model => model.KName, new { htmlAttributes = new { @class= "l-text" } })
+                 
+                </td>
+                <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.KName, "", new { @class = "text-danger" })</td>
                
+
+                
+            </tr>
+            <tr>
+                <td align="right" class="l-table-edit-td" valign="top">性别:</td>
+                <td align="left" class="l-table-edit-td">
+                    <input id="rbtnl_0" type="radio" name="rbtnl" value="1" checked="checked" />
+                    <label for="rbtnl_0">男</label>
+                    <input id="rbtnl_1" type="radio" name="rbtnl" value="2" />
+                    <label for="rbtnl_1">女</label>
+                </td>
+                <td align="left"></td>
+            </tr>
+
+            <tr>
+                <td align="right" class="l-table-edit-td" valign="top">爱好:</td>
+                <td align="left" class="l-table-edit-td">
+                    <input id="CheckBoxList1_0" type="checkbox" name="CheckBoxList1$0" checked="checked"/><label for="CheckBoxList1_0">篮球</label><br/><input id="CheckBoxList1_1" type="checkbox" name="CheckBoxList1$1"/><label for="CheckBoxList1_1">网球</label> <br/><input id="CheckBox1" type="checkbox" name="CheckBoxList1$1"/><label for="CheckBoxList1_1">足球</label>
+                </td>
+                <td align="left"></td>
+            </tr>
+
+            <tr>
+                <td align="right" class="l-table-edit-td">入职日期:</td>
+                <td align="left" class="l-table-edit-td">
+                    <input name="txtDate" type="text" id="txtDate" ltype="date"/>
+                </td>
+                <td align="left"></td>
+            </tr>
+        </table>
+        <input type="submit" value="提交" id="Button1" class="l-button l-button-submit" />
+        <input type="reset" value="重置" class="l-button l-button-reset" />
+
+
+
+
+
+
+
+            @*<div class="form-control">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KType, new { htmlAttributes = new { @class = "form-control" } })
+
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.KName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.KName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.KName, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.KName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KName, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Kvalue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Kvalue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Kvalue, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Kvalue, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Kvalue, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Kvalue, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.KRemark, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.KRemark, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.KRemark, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.KRemark, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KRemark, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KRemark, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-   
-    }
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>*@
 
-
-@section scripts{
-    <script type="text/javascript">
-        function Begin() {
-            
-        }
-
-        function success(ajaxMsg) {
-            if (ajaxMsg.staus == 0) {
-                $.ligerDialog.success(ajaxMsg.msg,"成功",function() 
-                 {   
-                window.parent.gridd.reload();
-                    window.parent.win.hide();
-
-                });
-               
-              
             }
-            if (ajaxMsg.staus == 1) {
-                $.ligerDialog.warn(ajaxMsg.msg);
+
+
+            @section scripts{
+                <script type="text/javascript">
+                    $(function() {
+                        $("#form1").ligerForm();
+                    });
+                    function Begin() {
+
+                    }
+
+                    function success(ajaxMsg) {
+                        if (ajaxMsg.staus == 0) {
+                            $.ligerDialog.success(ajaxMsg.msg, "成功", function () {
+                                window.parent.gridd.reload();
+                                window.parent.win.hide();
+
+                            });
+
+
+                        }
+                        if (ajaxMsg.staus == 1) {
+                            $.ligerDialog.warn(ajaxMsg.msg);
+                        }
+                        if (ajaxMsg.staus == 2) {
+                            $.ligerDialog.error(ajaxMsg.msg);
+                        }
+                    }
+                </script>
             }
-            if (ajaxMsg.staus == 2) {
-                $.ligerDialog.error(ajaxMsg.msg);
-            }
-        }
-    </script>
-}
