@@ -43,9 +43,22 @@ namespace CRM.WebHelper.Filter
 
                 }
 
-                ViewResult view = new ViewResult();
-                view.ViewName = "/Areas/admin/Views/login/nologin.cshtml";
-                filterContext.Result = view;
+                if (filterContext.HttpContext.Request.IsAjaxRequest())
+                {
+                    JsonResult jsonResult = new JsonResult();
+                    jsonResult.Data = new {Status = (int) AjaxResultEnums.NoLogin, msg = "未登录或登录信息丢失，请重新登录"};
+                    jsonResult.JsonRequestBehavior=JsonRequestBehavior.AllowGet;
+                    filterContext.Result = jsonResult;
+                }
+                else
+                {
+                    ViewResult view = new ViewResult();
+                    view.ViewName = "/Areas/admin/Views/login/nologin.cshtml";
+                    filterContext.Result = view;
+                }
+
+
+               
 
             }
             

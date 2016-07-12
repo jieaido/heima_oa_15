@@ -72,21 +72,11 @@
                     }
 
                     function success(ajaxMsg) {
-                        if (ajaxMsg.staus == 0) {
-                            $.ligerDialog.success(ajaxMsg.msg, "成功", function () {
-                                window.parent.gridd.reload();
-                                window.parent.winedit.close();
+                        CRMHelper.CheckStatus(ajaxMsg, function() {
+                            window.parent.gridd.reload();
+                            window.parent.winedit.close();
+                        });
 
-                            });
-
-
-                        }
-                        if (ajaxMsg.staus == 1) {
-                            $.ligerDialog.warn(ajaxMsg.msg);
-                        }
-                        if (ajaxMsg.staus == 2) {
-                            $.ligerDialog.error(ajaxMsg.msg);
-                        }
                     }
 </script>
             }

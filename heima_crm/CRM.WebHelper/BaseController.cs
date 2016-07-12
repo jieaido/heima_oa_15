@@ -28,15 +28,19 @@ namespace CRM.WebHelper
 
         protected ActionResult AjaxSuccess(string message)
         {
-            return Json(new {staus = (int)AjaxResultEnums.Success, msg = message });
+            return Json(new { Status = (int)AjaxResultEnums.Success, msg = message });
         }
-        protected ActionResult AjaxFail(string message)
+        protected ActionResult AjaxNologin(string message)
         {
-            return Json(new { staus = (int)AjaxResultEnums.Fail, msg = message });
+            return Json(new { Status = (int)AjaxResultEnums.NoLogin, msg = message });
         }
         protected ActionResult AjaxError(Exception ex)
         {
-            return Json(new { staus = (int)AjaxResultEnums.Fail, msg = ex.Message });
+            return Json(new { Status = (int)AjaxResultEnums.Error, msg = ex.Message });
+        }
+        protected ActionResult AjaxFail(string msg)
+        {
+            return Json(new { Status = (int)AjaxResultEnums.Fail, msg = msg });
         }
     }
 }

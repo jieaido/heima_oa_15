@@ -671,6 +671,7 @@
     <Content Include="Scripts\LigerUI\lib\ligerUI\skins\Tab\images\win\dialogbtn.gif" />
     <Content Include="Scripts\LigerUI\lib\ligerUI\skins\Tab\images\win\dialogicon.gif" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\MyScripts\Myjs.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -765,7 +766,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>8533</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

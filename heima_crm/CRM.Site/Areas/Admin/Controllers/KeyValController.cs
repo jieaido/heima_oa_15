@@ -82,7 +82,7 @@ namespace CRM.Site.Areas.Admin.Controllers
               
             }
             keyvalSer.SaveChanges();
-            return AjaxSuccess("ss");
+            return AjaxSuccess("成功");
         }
         public ActionResult GetKeyVallist()
         {

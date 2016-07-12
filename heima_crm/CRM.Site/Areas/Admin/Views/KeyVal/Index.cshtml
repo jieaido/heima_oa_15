@@ -71,7 +71,7 @@
             function add() {
                 winopen = $.ligerDialog.open({
                     height: 250,
-                    width: 300,
+                    width: 500,
                     isResize: true,
                     url: '@Url.Action("Add")'
                 });
@@ -89,29 +89,27 @@
 
                 winedit = $.ligerDialog.open({
                     height: 250,
-                    width: 300,
+                    width: 500,
                     url: '@Url.Action("Edit", "KeyVal")' + '/' + kid
                 });
             }
 
             function del() {
                 var rows = gridd.getSelectedRows();
-                function parmss() {
-                    this.id = 0;
-                }
-                var ids ="";
+
+                var ids = "";
                 for (var i = 0; i < rows.length; i++) {
                     ids += rows[i].KID + ',';
                 }
 
-                
-
-                $.post('@Url.Action("Delete", "KeyVal")', { id: ids }, function (ajaxMsg, status) {
-                    $.ligerDialog.success(ajaxMsg.msg);
-                    gridd.reload();
+                $.post('@Url.Action("Delete", "KeyVal")', { id: ids }, function(ajaxMsg, status) {
+                    CRMHelper.CheckStatus(ajaxMsg, function() {
+                        gridd.reload();
+                    });
                 })
-            };
-        
+
+
+            }
 
         </script>
     }

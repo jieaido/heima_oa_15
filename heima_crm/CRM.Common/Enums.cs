@@ -10,7 +10,8 @@ namespace CRM.Common
     {
         Success=0,
         Fail,
-        Unkown
+        NoLogin,
+        Error
 
     }
 }
