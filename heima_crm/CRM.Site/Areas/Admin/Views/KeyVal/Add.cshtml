@@ -29,8 +29,8 @@
         top: 120px;
     }
 </style>
-<h2>Add</h2>
-<div style="margin-left: 20px"/>
+<h2 class="text-center" style="border-bottom: solid seagreen;padding: 5px">增加键值对</h2>
+<div style="margin-left: 20px;margin-top: 25px"/>
 
 
     @using (Ajax.BeginForm("Add","KeyVal",new AjaxOptions()
@@ -43,44 +43,35 @@
     },new {@class="l-form",id="form1"}))
     {
         @Html.AntiForgeryToken()
+
         <table cellpadding="0" cellspacing="0"    style="padding: 10px" class="l-table-edit">
             <tr>
-                <td align="right" class="l-table-edit-td">名字:</td>
-                <td align="left" class="l-table-edit-td">
-                   
-                    @Html.EditorFor(model => model.KName, new { htmlAttributes = new { @class= "l-text" } })
-                 
+                <td align="right" class="l-table-edit-td">字典键值名称:</td>
+                <td align="left" class="l-table-edit-td">                
+                    @Html.EditorFor(model => model.KName, new { htmlAttributes = new { @class= "l-text" } })        
                 </td>
-                <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.KName, "", new { @class = "text-danger" })</td>
-               
-
-                
+                <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.KName)</td>
             </tr>
             <tr>
-                <td align="right" class="l-table-edit-td" valign="top">性别:</td>
+                <td align="right" class="l-table-edit-td">字典键值:</td>
                 <td align="left" class="l-table-edit-td">
-                    <input id="rbtnl_0" type="radio" name="rbtnl" value="1" checked="checked" />
-                    <label for="rbtnl_0">男</label>
-                    <input id="rbtnl_1" type="radio" name="rbtnl" value="2" />
-                    <label for="rbtnl_1">女</label>
+                    @Html.EditorFor(model => model.Kvalue, new {htmlAttributes = new {@class = "l-text"}})
                 </td>
-                <td align="left"></td>
+                <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.Kvalue)</td>
             </tr>
-
             <tr>
-                <td align="right" class="l-table-edit-td" valign="top">爱好:</td>
+                <td align="right" class="l-table-edit-td">字典键值备注:</td>
                 <td align="left" class="l-table-edit-td">
-                    <input id="CheckBoxList1_0" type="checkbox" name="CheckBoxList1$0" checked="checked"/><label for="CheckBoxList1_0">篮球</label><br/><input id="CheckBoxList1_1" type="checkbox" name="CheckBoxList1$1"/><label for="CheckBoxList1_1">网球</label> <br/><input id="CheckBox1" type="checkbox" name="CheckBoxList1$1"/><label for="CheckBoxList1_1">足球</label>
+                    @Html.EditorFor(model => model.KRemark, new {htmlAttributes = new {@class = "l-text"}})
                 </td>
-                <td align="left"></td>
+                <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.KRemark)</td>
             </tr>
-
             <tr>
-                <td align="right" class="l-table-edit-td">入职日期:</td>
+                <td align="right" class="l-table-edit-td">字典键值类型:</td>
                 <td align="left" class="l-table-edit-td">
-                    <input name="txtDate" type="text" id="txtDate" ltype="date"/>
+                    @Html.EditorFor(model => model.KType, new { htmlAttributes = new { @class= "l-text" } })
                 </td>
-                <td align="left"></td>
+                <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.KType)</td>
             </tr>
         </table>
         <input type="submit" value="提交" id="Button1" class="l-button l-button-submit" />
@@ -91,43 +82,6 @@
 
 
 
-
-            @*<div class="form-control">
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.KType, new { htmlAttributes = new { @class = "form-control" } })
-
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.KName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.KName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.KName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Kvalue, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Kvalue, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Kvalue, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.KRemark, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.KRemark, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.KRemark, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>*@
 
             }
 
