@@ -5,30 +5,10 @@
     ViewBag.Title = "Add";
 }
 <link href="~/Scripts/LigerUI/lib/ligerUI/skins/Aqua/css/ligerui-form.css" rel="stylesheet" />
-<style type="text/css">
-    body {
-        font-size: 12px;
-    }
 
-    .l-table-edit {
-    }
-
-    .l-table-edit-td {
-        padding: 4px;
-    }
-
-    .l-button-submit, .l-button-reset {
-        width: 80px;
-        float: left;
-        margin-left: 10px;
-        padding-bottom: 2px;
-    }
-
-    .l-verify-tip {
-        left: 230px;
-        top: 120px;
-    }
-</style>
+<!--
+这个标题是我自己写的哦    
+-->
 <h2 class="text-center" style="border-bottom: solid seagreen;padding: 5px">增加键值对</h2>
 <div style="margin-left: 20px;margin-top: 25px"/>
 
@@ -99,7 +79,7 @@
                         if (ajaxMsg.staus == 0) {
                             $.ligerDialog.success(ajaxMsg.msg, "成功", function () {
                                 window.parent.gridd.reload();
-                                window.parent.win.hide();
+                                window.parent.winopen.close();
 
                             });
 

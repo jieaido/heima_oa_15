@@ -221,6 +221,8 @@
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KeyVal\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KeyVal\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\KeyVal\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\KeyVal\Edit2.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />

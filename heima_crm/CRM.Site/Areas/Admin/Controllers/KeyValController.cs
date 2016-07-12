@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using CRM.IServer;
 using CRM.Model;
+using CRM.Model.ModelView;
 using CRM.WebHelper;
 
 namespace CRM.Site.Areas.Admin.Controllers
@@ -38,6 +39,50 @@ namespace CRM.Site.Areas.Admin.Controllers
             keyvalSer.AddOrUpdate(model);
             keyvalSer.SaveChanges();
             return base.AjaxSuccess("good");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Edit(int id)
+        {
+            /*todo 这个参数最好用id，用其他的比如kid会报错误    <title>对于“CRM.Site.Areas.Admin.Controllers.KeyValController”中方法“System.Web.Mvc.ActionResult Edit
+            (Int32)”的不可以为 null 的类型“System.Int32”的参数“kid”，参数字典包含一个 null 项。可选参数必须为引用类型、可以为 null 的类型或声明为可选参数。< br > 参数*/
+
+            var model = keyvalSer.QueryWhere(s => s.KID == id).FirstOrDefault();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Edit([Bind(Include = "KID,KType,KName,Kvalue,KRemark")]sysKeyValue model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return AjaxFail("实体验证失败");
+            }
+            
+            keyvalSer.AddOrUpdate(model);
+            keyvalSer.SaveChanges();
+            return AjaxSuccess("修改成功");
+        }
+
+        public ActionResult Delete(string id)
+        {
+           
+           
+            string[] ids = id.Split(',');
+            foreach (var m_id in ids)
+            {
+                if (!string.IsNullOrEmpty(m_id))
+                {
+                    int Tempid = int.Parse(m_id);
+                    keyvalSer.Delete(keyvalSer.QueryWhere(s => s.KID == Tempid).FirstOrDefault());
+                }
+              
+            }
+            keyvalSer.SaveChanges();
+            return AjaxSuccess("ss");
         }
         public ActionResult GetKeyVallist()
         {
