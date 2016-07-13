@@ -18,7 +18,20 @@
         } else {
             $.ligerDialog.error("未知错误！");
         }
-     
+        GetFunctionsByUser
+    },
+    getFunctionByPermiss:function(url,callback) {
+        $.post('/admin/Function/GetFunctionsByUser', { url: url }, function (itemobject, status) {
+            for (var i = 0; i < itemobject.length; i++) {
+                if (itemobject[i].click) {
+                    //动态执行一个字符串，将结果覆盖原来的click的值
+
+                    var strt = eval(itemobject[i].click);
+                    itemobject[i].click = eval(itemobject[i].click);
+                }
+            }
+            callback(itemobject);
+        });
     }
 
 }

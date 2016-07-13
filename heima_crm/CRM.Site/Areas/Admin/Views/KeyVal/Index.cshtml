@@ -32,40 +32,43 @@
         <script type="text/javascript">
             var gridd;
             $(function() {
-                    gridd = $("#maingrid4").ligerGrid({
-                        columns: [
-                            { display: '主键编号', name: 'KID', align: 'left', width: 120 },
-                            { display: '字典类型', name: 'KType', minWidth: 60 },
-                            { display: '字典名称', name: 'KName', width: 50, align: 'left' },
-                            { display: '字典值', name: 'Kvalue' }
-                        ],
-                        pageSize: 10,
-                        checkbox: true,
-                        url: '@Url.Action("GetKeyVallist", "KeyVal")',
-                        parms: [
-                            {
-                                name: " KName",
-                                value: $("#kname").val()
-                            }
-                        ],
-//这个高度也必须写。要不然不出滚动条
-                        height: '100%',
-                        method: "post",
-                        isScroll: true,
-                        groupColumnName: 'KType',
-                        groupColumnDisplay: '字典类型',
-                        toolbar: {
-                            items: [
-                                { text: '增加', click: add, icon: 'add' },
-                                { line: true },
-                                { text: '修改', click: edit, icon: 'modify' },
-                                { line: true },
-                                { text: '删除', click: del }
-                            ]
+                CRMHelper.getFunctionByPermiss('@Request.RawUrl', CreateGrid);
+            });
+               
+                  
+                
+          
+
+            function CreateGrid(itemjson) {
+                gridd = $("#maingrid4").ligerGrid({
+                    columns: [
+                        { display: '主键编号', name: 'KID', align: 'left', width: 120 },
+                        { display: '字典类型', name: 'KType', minWidth: 60 },
+                        { display: '字典名称', name: 'KName', width: 150, align: 'left' },
+                        { display: '字典值', name: 'Kvalue' }
+                    ],
+                    pageSize: 10,
+                    checkbox: true,
+                    url: '@Url.Action("GetKeyVallist", "KeyVal")',
+                    parms: [
+                        {
+                            name: " KName",
+                            value: $("#kname").val()
                         }
-                    });
-                }
-            );
+                    ],
+                    //这个高度也必须写。要不然不出滚动条
+                    height: '100%',
+                    method: "post",
+                    isScroll: true,
+                    groupColumnName: 'KType',
+                    groupColumnDisplay: '字典类型',
+                    toolbar: {
+                        items:itemjson
+                    }
+                });
+            }
+
+
             var winopen;
 
             function add() {
@@ -94,6 +97,9 @@
                 });
             }
 
+            function refresh() {
+                gridd.reload();
+            }
             function del() {
                 var rows = gridd.getSelectedRows();
 
