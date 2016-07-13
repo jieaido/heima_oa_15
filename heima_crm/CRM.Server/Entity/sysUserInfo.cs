@@ -13,7 +13,8 @@ using CRM.Server;
 
 namespace CRM.Server
 {
-
+    using System;
+    using System.Collections.Generic;
     using CRM.Model;
     /// <summary>
     /// 负责每个数据表的数据操作
@@ -27,11 +28,16 @@ namespace CRM.Server
     		this.dal = dal;
     		base.baseDal = dal;
     	}
-      #endregion
-    
-    
-       #region 针对此表的特殊操作写在此处
-            
-      #endregion
+
+        IEnumerable<sysPermissList> IsysUserInfoServices.GetPermissListByUser(int userid)
+        {
+            return dal.GetPermissListByUser(userid);
+        }
+        #endregion
+
+
+        #region 针对此表的特殊操作写在此处
+
+        #endregion
     }
 }

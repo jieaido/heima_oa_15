@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections;
+using System.Collections.Generic;
+
 namespace CRM.IRepository
 {
 
@@ -16,7 +19,9 @@ namespace CRM.IRepository
     public partial interface IsysUserInfoRepository :IBaseRepository<sysUserInfo>
     {
        #region 针对此表的特殊操作的约定写在此处
-            
-      #endregion
+
+        IEnumerable<sysPermissList>  GetPermissListByUser(int userid);
+
+        #endregion
     }
 }

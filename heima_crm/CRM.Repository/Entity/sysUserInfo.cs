@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using CRM.IRepository;
 using CRM.Model;
 
@@ -16,10 +19,24 @@ namespace CRM.Repository
     /// <summary>
     /// 负责每个数据表的数据操作
     /// </summary>
-    public partial class sysUserInfoRepository :BaseRepository<sysUserInfo>,IsysUserInfoRepository
+    public partial class sysUserInfoRepository : BaseRepository<sysUserInfo>, IsysUserInfoRepository
     {
-       #region 针对此表的特殊操作写在此处
-            
-      #endregion
+        #region 针对此表的特殊操作写在此处
+
+        #endregion
+     
+        IEnumerable<sysPermissList> IsysUserInfoRepository.GetPermissListByUser(int userid)
+        {
+            HashSet<sysPermissList> sysPermissLists=new HashSet<sysPermissList>();
+            var userinfo = QueryWhere(s => s.uID == userid).FirstOrDefault();
+            foreach (var sysUserInfoRole in userinfo.sysUserInfo_Role)
+            {
+                foreach (var VARIABLE in sysUserInfoRole.sysRole.sysPermissList)
+                {
+                    sysPermissLists.Add(VARIABLE);
+                }
+            }
+            return sysPermissLists;
+        }
     }
 }

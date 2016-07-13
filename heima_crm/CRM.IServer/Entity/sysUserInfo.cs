@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 using CRM.IServer;
 using CRM.Model;
 
@@ -18,8 +19,10 @@ namespace CRM.IServer
     /// </summary>
     public partial interface IsysUserInfoServices :IBaseServices<sysUserInfo>
     {
-       #region 针对此表的特殊操作的约定写在此处
-            
-      #endregion
+        #region 针对此表的特殊操作的约定写在此处
+
+        IEnumerable<sysPermissList> GetPermissListByUser(int userid);
+
+        #endregion
     }
 }

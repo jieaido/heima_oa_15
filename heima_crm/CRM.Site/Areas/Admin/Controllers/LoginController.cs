@@ -75,6 +75,7 @@ namespace CRM.Site.Areas.Admin.Controllers
                     cookie.Expires = DateTime.Now.AddDays(-3);
                     Response.Cookies.Add(cookie);
                 }
+               
                 Session[Keys.LoginUserinfo] = userinfo;
                 return AjaxSuccess("登陆成功");
             }
