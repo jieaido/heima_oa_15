@@ -32,7 +32,13 @@ namespace CRM.WebHelper
             {
                 menulList.Add(sysPermissList.sysMenus);
             }
+
+          
             
+            
+
+
+
             return menulList;
         }
 
@@ -53,6 +59,15 @@ namespace CRM.WebHelper
             }
             return sysFunctions;
 
-        } 
+        }
+
+        public static void getdfd()
+        {
+            var IContainer = CacheMng.GetData<IContainer>(Keys.AutofacIContainer);
+            IsysUserInfoServices userInfoServices = IContainer.Resolve<IsysUserInfoServices>();
+            IsysFunctionServices sysFunctionServices= IContainer.Resolve<IsysFunctionServices>();
+            IsysPermissListServices sysPermissListServices= IContainer.Resolve<IsysPermissListServices>();
+            IsysMenusServices sysMenusServices= IContainer.Resolve<IsysMenusServices>();
+        }
     }
 }

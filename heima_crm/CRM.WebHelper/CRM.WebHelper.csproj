@@ -80,6 +80,7 @@
     <Compile Include="attrs\SkipLoginAttribute.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="CacheMng.cs" />
+    <Compile Include="Filter\CheckPermissionAttr.cs" />
     <Compile Include="Filter\CheckLoginAttr.cs" />
     <Compile Include="MenuManger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
