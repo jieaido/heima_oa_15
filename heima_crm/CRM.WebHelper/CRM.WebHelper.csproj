@@ -81,6 +81,7 @@
     <Compile Include="BaseController.cs" />
     <Compile Include="CacheMng.cs" />
     <Compile Include="Filter\CheckLoginAttr.cs" />
+    <Compile Include="MenuManger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserManger.cs" />
   </ItemGroup>

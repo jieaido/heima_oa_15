@@ -24,7 +24,7 @@ namespace CRM.Site.Areas.Admin.Controllers
             {
                 return RedirectToRoute(new {Controller = "Home", Action = "Index"});
             }
-            ViewBag.menus = GetMenus();
+            ViewBag.menus = MenuManger.GetMenus();
             var ss = Session[Keys.LoginUserinfo];
             {
               //  var loginuserinfo = Session[Keys.LoginUserinfo] as sysUserInfo;
@@ -34,39 +34,7 @@ namespace CRM.Site.Areas.Admin.Controllers
         }
 
         
-        public Node GetMenus()
-        {
-           Node Nodes=new Node();
-           var querymenus= menuSer.QueryOrderBy(m => m.mParentID==-1, m => m.mSortid);
-            foreach (var querymenu in querymenus)
-            {
-               var node= Nodes.Add(new Node() {Nodeitem = querymenu});
-                Addchildnode(querymenu.mID,node);
-            }
-            return Nodes;
-        }
-
-        private void Addchildnode(int id,Node node)
-        {
-            var querymenus = menuSer.QueryOrderBy(m => m.mParentID == id, m => m.mSortid);
-            foreach (var querymenu in querymenus)
-            {
-                var n= node.Add(new Node() {Nodeitem = querymenu});
-                Addchildnode(querymenu.mID,n);
-
-            }
-        }
+      
     }
 }
 
-public class Node
-{
-    public sysMenus Nodeitem;
-    public List<Node> ChildNodes=new List<Node>();
-
-    public Node Add(Node node)
-    {
-        ChildNodes.Add(node);
-        return ChildNodes.Last();
-    }
-}
