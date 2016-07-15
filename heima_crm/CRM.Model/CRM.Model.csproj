@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CRMContext.cs" />
+    <Compile Include="ModelView\PermissMenuFunModel.cs" />
     <Compile Include="ModelView\sysFunction.cs" />
     <Compile Include="ModelView\sysKeyValue.cs" />
     <Compile Include="ModelView\sysMenus.cs" />

@@ -18,7 +18,7 @@ namespace CRM.WebHelper.Filter
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
 
-            if (filterContext.ActionDescriptor.IsDefined(typeof(SkipLoginAttribute),false)||filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(SkipLoginAttribute),false))
+            if (filterContext.ActionDescriptor.IsDefined(typeof(SkipcheckpermissAttribute),false)||filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(SkipcheckpermissAttribute),false))
             {
                 return;
             }
@@ -28,36 +28,28 @@ namespace CRM.WebHelper.Filter
             string areasname = "";
             if (filterContext.RequestContext.RouteData.DataTokens.ContainsKey("area"))
             {
-                areasname = filterContext.RequestContext.RouteData.DataTokens.ContainsKey("area").ToString().ToLower();
+                areasname = filterContext.RequestContext.RouteData.DataTokens["area"].ToString().ToLower();
             }
-            
+
+             var  Permissmenufun= UserManger.GetPermissMenuFun(UserManger.GetUserInfoName().uID);
+            bool tempok1 = Permissmenufun.Any(p => p.murl.ToLower() == filterContext.HttpContext.Request.RawUrl.ToLower());
+            bool tempok2 =
+                Permissmenufun.Any(
+                    p =>
+                        p.marea.ToLower() == areasname && p.mcontroller.ToLower() == getcontrollername &&
+                        p.ffuntion.ToLower() == getactionname.ToLower());
+            if (tempok1||tempok2)
+            {
+                return;
+            }
            
 
-            if (filterContext.HttpContext.Session[Keys.LoginUserinfo] == null )
-            {
-                var httpCookie = filterContext.HttpContext.Request.Cookies[Keys.IsRemember];
-                if (httpCookie != null)
-                {
-                    string uid = httpCookie.Value;
-                    if (uid!="")
-                    {
-                        int userid = int.Parse(uid);
-                        var IContainer= CacheMng.GetData<IContainer>(Keys.AutofacIContainer);
-                        IsysUserInfoServices userInfoServices = IContainer.Resolve<IsysUserInfoServices>();
-                        var userinfo = userInfoServices.QueryWhere(u => u.uID == userid).FirstOrDefault();
-                        if (userinfo!=null)
-                        {
-                            HttpContext.Current.Session[Keys.LoginUserinfo] = userinfo;
-                            return;
-                        }
-                    }
-
-                }
+           
 
                 if (filterContext.HttpContext.Request.IsAjaxRequest())
                 {
                     JsonResult jsonResult = new JsonResult();
-                    jsonResult.Data = new {Status = (int) AjaxResultEnums.NoLogin, msg = "未登录或登录信息丢失，请重新登录"};
+                    jsonResult.Data = new {Status = (int) AjaxResultEnums.Error, msg = "没有权限"};
                     jsonResult.JsonRequestBehavior=JsonRequestBehavior.AllowGet;
                     filterContext.Result = jsonResult;
                 }
@@ -71,7 +63,7 @@ namespace CRM.WebHelper.Filter
 
                
 
-            }
+            
             
             base.OnActionExecuting(filterContext);
         }

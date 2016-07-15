@@ -5,8 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CRM.WebHelper.attrs
-{[AttributeUsage(AttributeTargets.Class|AttributeTargets.Method,AllowMultiple = false)]
+{
+
+    [AttributeUsage(AttributeTargets.Class|AttributeTargets.Method,AllowMultiple = false)]
     public class SkipLoginAttribute : Attribute
     {
+    }
+
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
+    public class SkipcheckpermissAttribute : Attribute
+    {
+
     }
 }

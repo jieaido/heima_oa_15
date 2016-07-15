@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CRM.WebHelper;
+using CRM.WebHelper.attrs;
 
 namespace CRM.Site.Areas.Admin.Controllers
 {
+    [Skipcheckpermiss]
     public class FunctionController : Controller
     {
         // GET: Admin/Function

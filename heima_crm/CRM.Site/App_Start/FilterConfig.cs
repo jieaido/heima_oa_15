@@ -10,6 +10,7 @@ namespace CRM.Site
         {
             filters.Add(new HandleErrorAttribute());
             filters.Add(new  CheckLoginAttr());
+            filters.Add(new CheckPermissionAttr());
         }
     }
 }

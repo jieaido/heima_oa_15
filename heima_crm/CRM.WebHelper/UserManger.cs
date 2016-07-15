@@ -8,6 +8,7 @@ using Autofac;
 using CRM.Common;
 using CRM.IServer;
 using CRM.Model;
+using CRM.Model.ModelView;
 
 namespace CRM.WebHelper
 {
@@ -21,43 +22,36 @@ namespace CRM.WebHelper
             return userinfo;
         }
 
+        /// <summary>
+        /// 根据用户id获取做菜单项
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
         public static IEnumerable<sysMenus> GetMenusByUser(int uid)
         {
             var IContainer = CacheMng.GetData<IContainer>(Keys.AutofacIContainer);
             IsysUserInfoServices userInfoServices = IContainer.Resolve<IsysUserInfoServices>();
-            HashSet<sysMenus> menulList=new HashSet<sysMenus>();
-            var permisslist= userInfoServices.GetPermissListByUser(uid);
-            
+            HashSet<sysMenus> menulList = new HashSet<sysMenus>();
+            var permisslist = userInfoServices.GetPermissListByUser(uid);
 
 
             foreach (var sysPermissList in permisslist)
             {
                 menulList.Add(sysPermissList.sysMenus);
-               
             }
-
-             var r2= from permiss1 in permisslist
-            select new
-            {
-                permiss1.plid,
-                permiss1.sysMenus.mID,
-                permiss1.sysMenus.mName,
-                permiss1.sysMenus.mUrl,
-                permiss1.sysMenus.mArea,
-                permiss1.sysMenus.mController,
-                permiss1.sysMenus.mAction,
-                permiss1.sysFunction.fID,
-                permiss1.sysFunction.fName,
-                permiss1.sysFunction.fFunction
-            };
 
 
             return menulList;
         }
 
-        public static IEnumerable<sysFunction> GetFunctionsByUser(int uid,string url)
+        /// <summary>
+        /// 根据用户id和url查找菜单下的功能按钮
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static IEnumerable<sysFunction> GetFunctionsByUser(int uid, string url)
         {
-
             var IContainer = CacheMng.GetData<IContainer>(Keys.AutofacIContainer);
             IsysUserInfoServices userInfoServices = IContainer.Resolve<IsysUserInfoServices>();
             var permisslist = userInfoServices.GetPermissListByUser(uid);
@@ -68,49 +62,36 @@ namespace CRM.WebHelper
                 {
                     sysFunctions.Add(sysPermissList.sysFunction);
                 }
-               
             }
             return sysFunctions;
-
         }
 
-        public static void getdfd(int id)
+        /// <summary>
+        /// 根据用户id获取用户的权限
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public static IEnumerable<PermissMenuFunModel> GetPermissMenuFun(int uid)
         {
-            var IContainer = CacheMng.GetData<IContainer>(Keys.AutofacIContainer);
-           
-            var funlist= IContainer.Resolve<IsysFunctionServices>().QueryWhere(s => true);
-
-            var r1 = GetMenusByUser(id);
-        
-            var r2 = from menu1 in GetMenusByUser(id)
-                join fun1 in funlist on menu1.mID equals fun1.mID
-                
-                select new
+            var container = CacheMng.GetData<IContainer>(Keys.AutofacIContainer);
+            IsysUserInfoServices userInfoServices = container.Resolve<IsysUserInfoServices>();
+            var permisslist = userInfoServices.GetPermissListByUser(uid);
+            var result = from permiss1 in permisslist
+                select new PermissMenuFunModel()
                 {
-                    menu1.mID,
-                    menu1.mAction,
-                    menu1.mArea,
-                    menu1.mController,
-                    menu1.mName,
-                    fun1.fFunction,
-                    fun1.fName
+                    pid = permiss1.plid,
+                    mid = permiss1.sysMenus.mID,
+                    mName = permiss1.sysMenus.mName,
+                    murl = permiss1.sysMenus.mUrl,
+                    marea = permiss1.sysMenus.mArea,
+                    mcontroller = permiss1.sysMenus.mController,
+                    maction = permiss1.sysMenus.mAction,
+                    fid = permiss1.sysFunction.fID,
+                    fname = permiss1.sysFunction.fName,
+                    ffuntion = permiss1.sysFunction.fFunction
                 };
-            return;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            return result;
         }
     }
 }

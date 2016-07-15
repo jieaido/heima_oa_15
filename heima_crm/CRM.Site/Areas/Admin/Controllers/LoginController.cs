@@ -19,6 +19,7 @@ using CRM.WebHelper.attrs;
 
 namespace CRM.Site.Areas.Admin.Controllers
 {
+    [Skipcheckpermiss]
     [SkipLogin]
     public class LoginController : BaseController
     {

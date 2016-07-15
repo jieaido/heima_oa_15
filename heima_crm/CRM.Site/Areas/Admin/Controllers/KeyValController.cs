@@ -9,6 +9,7 @@ using CRM.IServer;
 using CRM.Model;
 using CRM.Model.ModelView;
 using CRM.WebHelper;
+using CRM.WebHelper.attrs;
 
 namespace CRM.Site.Areas.Admin.Controllers
 {
@@ -21,7 +22,9 @@ namespace CRM.Site.Areas.Admin.Controllers
         // GET: Admin/KeyVal
         public ActionResult Index()
         {
+
             return View();
+
         }
 
         public ActionResult Add()
@@ -84,6 +87,8 @@ namespace CRM.Site.Areas.Admin.Controllers
             keyvalSer.SaveChanges();
             return AjaxSuccess("成功");
         }
+
+        [Skipcheckpermiss]
         public ActionResult GetKeyVallist()
         {
             string quertstr = HttpContext.Request["KName"];

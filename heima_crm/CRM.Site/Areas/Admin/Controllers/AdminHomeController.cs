@@ -7,9 +7,10 @@ using CRM.Common;
 using CRM.IServer;
 using CRM.Model;
 using CRM.WebHelper;
+using CRM.WebHelper.attrs;
 
 namespace CRM.Site.Areas.Admin.Controllers
-{
+{   [Skipcheckpermiss]
     public class AdminHomeController : BaseController
     {
         public AdminHomeController(IsysMenusServices isysMenusServices)
