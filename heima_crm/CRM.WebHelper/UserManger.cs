@@ -28,15 +28,28 @@ namespace CRM.WebHelper
             HashSet<sysMenus> menulList=new HashSet<sysMenus>();
             var permisslist= userInfoServices.GetPermissListByUser(uid);
             
+
+
             foreach (var sysPermissList in permisslist)
             {
                 menulList.Add(sysPermissList.sysMenus);
+               
             }
 
-          
-            
-            
-
+             var r2= from permiss1 in permisslist
+            select new
+            {
+                permiss1.plid,
+                permiss1.sysMenus.mID,
+                permiss1.sysMenus.mName,
+                permiss1.sysMenus.mUrl,
+                permiss1.sysMenus.mArea,
+                permiss1.sysMenus.mController,
+                permiss1.sysMenus.mAction,
+                permiss1.sysFunction.fID,
+                permiss1.sysFunction.fName,
+                permiss1.sysFunction.fFunction
+            };
 
 
             return menulList;
@@ -61,13 +74,43 @@ namespace CRM.WebHelper
 
         }
 
-        public static void getdfd()
+        public static void getdfd(int id)
         {
             var IContainer = CacheMng.GetData<IContainer>(Keys.AutofacIContainer);
-            IsysUserInfoServices userInfoServices = IContainer.Resolve<IsysUserInfoServices>();
-            IsysFunctionServices sysFunctionServices= IContainer.Resolve<IsysFunctionServices>();
-            IsysPermissListServices sysPermissListServices= IContainer.Resolve<IsysPermissListServices>();
-            IsysMenusServices sysMenusServices= IContainer.Resolve<IsysMenusServices>();
+           
+            var funlist= IContainer.Resolve<IsysFunctionServices>().QueryWhere(s => true);
+
+            var r1 = GetMenusByUser(id);
+        
+            var r2 = from menu1 in GetMenusByUser(id)
+                join fun1 in funlist on menu1.mID equals fun1.mID
+                
+                select new
+                {
+                    menu1.mID,
+                    menu1.mAction,
+                    menu1.mArea,
+                    menu1.mController,
+                    menu1.mName,
+                    fun1.fFunction,
+                    fun1.fName
+                };
+            return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }
