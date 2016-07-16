@@ -1,13 +1,6 @@
-﻿
-
-
-
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
-
-
-
 
 
 <div class="panel panel-default">
@@ -17,7 +10,7 @@
 
             <div class="form-group">
 
-                <input id="kname" type="text" class="form-control" placeholder="字典名称">
+                <input id="kname" class="form-control" placeholder="字典名称" type="text">
             </div>
             <button class="btn btn-success">搜索</button>
         </div>
@@ -26,105 +19,113 @@
 
 
 <form>
-    <div id="maingrid4" style="margin:0; padding:0"></div>
+    <div id="maingrid4" style="margin: 0; padding: 0"></div>
 </form>
-
 
 
 @section scripts{
     <script type="text/javascript">
-            var gridd;
-            $(function() {
-                CRMHelper.getFunctionByPermiss('@Request.RawUrl', CreateGrid);
-            });
+        var gridd;
+        $(function() {
+            CRMHelper.getFunctionByPermiss('@Request.RawUrl', CreateGrid);
+        });
 
-            function CreateGrid(itemjson) {
-                gridd = $("#maingrid4").ligerGrid({
-                    columns: [
-                        { display: '名称', name: 'osName',  id:'id1',align: 'left', width: 120 },
-                        { display: '编码', name: 'osCode', minWidth: 60 },
-                        { display: '类别', name: 'KName', width: 150, align: 'left' },
-                        { display: '别名', name: 'osShortName' },
-                        { display: '状态', name: 'osStatus' }
-                    ],
-                    tree: {
-                        //todo 这个id不能和name一样，只能重新换一个
-                        columnId: 'id1',
+        function CreateGrid(itemjson) {
+            gridd = $("#maingrid4").ligerGrid({
+                columns: [
+                    { display: '名称', name: 'osName', id: 'id1', align: 'left', width: 120 },
+                    { display: '编码', name: 'osCode', minWidth: 60 },
+                    { display: '类别', name: 'KName', width: 150, align: 'left' },
+                    { display: '别名', name: 'osShortName' },
+                    { display: '状态', name: 'osStatus' ,render:f_renderBool}
+                ],
+                tree: {
+                    //todo 这个id不能和name一样，只能重新换一个
+                    columnId: 'id1',
                     //columnName: 'name',
-                        idField: 'osID',
-                        parentIDField: 'osParentID'
-                        
-                    },
-                    pageSize: 10,
-                    checkbox: true,
-                    url: '@Url.Action("Getlist", "OrganStruct")',
-                    parms: [
-                        {
-                            name: " KName",
-                            value: $("#kname").val()
-                        }
-                    ],
-                    //这个高度也必须写。要不然不出滚动条
-                    height: '100%',
-                    method: "post",
-                    isScroll: true,
-                   
-                    toolbar: {
-                        items:itemjson
+                    idField: 'osID',
+                    parentIDField: 'osParentID'
+
+                },
+                pageSize: 10,
+                checkbox: true,
+                url: '@Url.Action("Getlist", "OrganStruct")',
+                parms: [
+                    {
+                        name: " KName",
+                        value: $("#kname").val()
                     }
-                });
-            }
+                ],
+                //这个高度也必须写。要不然不出滚动条
+                height: '100%',
+                method: "post",
+                isScroll: true,
 
-
-            var winopen;
-
-            function add() {
-                winopen = $.ligerDialog.open({
-                    height: 250,
-                    width: 500,
-                    isResize: true,
-                    url: '@Url.Action("Add")'
-                });
-                var winedit;
-            }
-
-            function edit() {
-                var row = gridd.getSelectedRow();
-                //todo 这样就可以获取到值
-                if (!row) {
-                    alert("请选择行！");
-                    return;
+                toolbar: {
+                    items: itemjson
                 }
-                var kid = row.KID;
+            });
+        }
 
-                winedit = $.ligerDialog.open({
-                    height: 250,
-                    width: 500,
-                    url: '@Url.Action("Edit", "KeyVal")' + '/' + kid
-                });
-            }
-
-            function refresh() {
-                gridd.reload();
-            }
-            function del() {
-                var rows = gridd.getSelectedRows();
-
-                var ids = "";
-                for (var i = 0; i < rows.length; i++) {
-                    ids += rows[i].KID + ',';
+        function f_renderBool(rowdata, index, value) {
+           
+                if (value==0) {
+                    return '<span style="color: red">停用</span>';
+                } else {
+                    return '<span style="color: green">正常</span>';
                 }
+            
 
-                $.post('@Url.Action("Delete", "KeyVal")', { id: ids }, function(ajaxMsg, status) {
-                    CRMHelper.CheckStatus(ajaxMsg, function() {
-                        gridd.reload();
-                    });
-                })
+        }
 
+        var winopen;
 
+        function add() {
+            winopen = $.ligerDialog.open({
+                height: 250,
+                width: 500,
+                isResize: true,
+                url: '@Url.Action("Add")'
+            });
+            var winedit;
+        }
+
+        function edit() {
+            var row = gridd.getSelectedRow();
+            //todo 这样就可以获取到值
+            if (!row) {
+                alert("请选择行！");
+                return;
             }
+            var kid = row.KID;
+
+            winedit = $.ligerDialog.open({
+                height: 250,
+                width: 500,
+                url: '@Url.Action("Edit", "KeyVal")' + '/' + kid
+            });
+        }
+
+        function refresh() {
+            gridd.reload();
+        }
+
+        function del() {
+            var rows = gridd.getSelectedRows();
+
+            var ids = "";
+            for (var i = 0; i < rows.length; i++) {
+                ids += rows[i].KID + ',';
+            }
+
+            $.post('@Url.Action("Delete", "KeyVal")', { id: ids }, function(ajaxMsg, status) {
+                CRMHelper.CheckStatus(ajaxMsg, function() {
+                    gridd.reload();
+                });
+            })
+
+
+        }
 
     </script>
 }
-
-
