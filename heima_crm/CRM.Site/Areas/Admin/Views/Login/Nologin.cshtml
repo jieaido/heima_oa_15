@@ -10,7 +10,7 @@
         $.ligerDialog.waitting('请登录');
         setTimeout(function() {
             $.ligerDialog.closeWaitting();
-            window.location = '@Url.Action("Login","Login",new {area="Admin"})';
+            window.top.location = '@Url.Action("Login","Login",new {area="Admin"})';
         }, 2000);
 
 
