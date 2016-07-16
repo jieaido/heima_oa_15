@@ -181,6 +181,7 @@
     <Compile Include="Areas\Admin\Controllers\FunctionController.cs" />
     <Compile Include="Areas\Admin\Controllers\KeyValController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrganStructController.cs" />
     <Compile Include="Areas\Admin\Models\LoginModelView.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -224,6 +225,7 @@
     <Content Include="Areas\Admin\Views\KeyVal\Add.cshtml" />
     <Content Include="Areas\Admin\Views\KeyVal\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\KeyVal\Edit2.cshtml" />
+    <Content Include="Areas\Admin\Views\OrganStruct\Index.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />

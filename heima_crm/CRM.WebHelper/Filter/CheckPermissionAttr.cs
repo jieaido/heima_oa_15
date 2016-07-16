@@ -36,8 +36,8 @@ namespace CRM.WebHelper.Filter
             bool tempok2 =
                 Permissmenufun.Any(
                     p =>
-                        p.marea.ToLower() == areasname && p.mcontroller.ToLower() == getcontrollername &&
-                        p.ffuntion.ToLower() == getactionname.ToLower());
+                        p.marea.ToLower() == areasname && p.mcontroller.ToLower() == getcontrollername &&(
+                        p.ffuntion.ToLower() == getactionname.ToLower()||p.maction.ToLower()==getactionname.ToLower()));
             if (tempok1||tempok2)
             {
                 return;
