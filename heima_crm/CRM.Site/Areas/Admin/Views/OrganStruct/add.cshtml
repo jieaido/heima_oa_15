@@ -1,0 +1,103 @@
+﻿@model CRM.Model.sysOrganStruct
+
+@{
+    ViewBag.Title = "add";
+}
+
+<h2 class="text-center" style="border-bottom: solid seagreen;padding: 5px">增加键值对</h2>
+<div style="margin-left: 20px;margin-top: 25px" />
+
+
+@using (Ajax.BeginForm("add","organstruct" ,new AjaxOptions()
+{
+    HttpMethod = "Post",
+    Url = Url.Action("Add", "OrganStruct"),
+    OnBegin = "Begin",
+    OnSuccess = "success"
+
+}, new { @class = "l-form", id = "form1" }))
+{
+    @Html.AntiForgeryToken()
+
+    <table cellpadding="0" cellspacing="0" style="padding: 10px" class="l-table-edit">
+        <tr>
+            <td align="right" class="l-table-edit-td">osname:</td>
+            <td align="left" class="l-table-edit-td">
+                @Html.EditorFor(model => model.osName, new { htmlAttributes = new { @class = "l-text" } })
+            </td>
+            <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.osName)</td>
+        </tr>
+        <tr>
+            <td align="right" class="l-table-edit-td">oscode:</td>
+            <td align="left" class="l-table-edit-td">
+                @Html.EditorFor(model => model.osCode, new { htmlAttributes = new { @class = "l-text" } })
+            </td>
+            <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.osCode)</td>
+        </tr>
+        <tr>
+            <td align="right" class="l-table-edit-td">shortname:</td>
+            <td align="left" class="l-table-edit-td">
+                @Html.EditorFor(model => model.osShortName, new { htmlAttributes = new { @class = "l-text" } })
+            </td>
+            <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.osShortName)</td>
+        </tr>
+        <tr>
+            <td align="right" class="l-table-edit-td">remark:</td>
+            <td align="left" class="l-table-edit-td">
+                @Html.EditorFor(model => model.osRemark, new {htmlAttributes = new {@class = "l-text"}})
+            </td>
+            <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.osRemark)</td>
+        </tr>
+         <tr>
+            <td align="right" class="l-table-edit-td">status:</td>
+            <td align="left" class="l-table-edit-td">
+                @Html.RadioButtonFor(model => model.osStatus,1,new {@name="osStatus"})<span>启用</span>
+                @Html.RadioButtonFor(model => model.osStatus, 0, new {@name = "osStatus"}) <span> 停用 </span>
+            </td>
+            <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.osStatus)</td>
+        </tr>
+        <tr>
+            <td align="right" class="l-table-edit-td">status:</td>
+            <td align="left" class="l-table-edit-td">
+                @Html.DropDownListFor(model => model.osCateID, ViewData["catelid"] as List<SelectListItem>)
+            </td>
+            <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.osCateID)</td>
+        </tr>
+        <tr>
+            <td align="right" class="l-table-edit-td">status:</td>
+            <td align="left" class="l-table-edit-td">
+                @Html.DropDownListFor(model => model.osParentID,ViewData["pid"] as List<SelectListItem>)
+            </td>
+            <td align="left" class="l-table-edit">@Html.ValidationMessageFor(model => model.osCateID)</td>
+        </tr>
+    </table>
+        <input type="submit" value="提交" id="Button1" class="l-button l-button-submit" />
+        <input type="reset" value="重置" class="l-button l-button-reset" />
+
+
+
+
+
+
+
+}
+
+
+@section scripts{
+    <script type="text/javascript">
+                    $(function() {
+                        $("#form1").ligerForm();
+                    });
+                    function Begin() {
+
+                    }
+
+                    function success(ajaxMsg) {
+                        CRMHelper.CheckStatus(ajaxMsg, function () {
+                            window.parent.gridd.reload();
+                            window.parent.winopen.close();
+                        });
+
+                    }
+    </script>
+}
