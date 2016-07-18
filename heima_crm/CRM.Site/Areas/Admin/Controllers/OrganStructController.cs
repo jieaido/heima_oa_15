@@ -19,7 +19,7 @@ namespace CRM.Site.Areas.Admin.Controllers
         // GET: Admin/OrganStruct
         public ActionResult Index()
         {
-            GetOrganLevel(organSer.QueryWhere(o => o.osID == 24).FirstOrDefault());
+           // var ss= GetallInts(20);
             return View();
         }
 
@@ -93,7 +93,16 @@ namespace CRM.Site.Areas.Admin.Controllers
             return null;
         }
 
+        public ActionResult edit()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult edit(sysOrganStruct model)
+        {
+            return null;
+        }
 
         protected int GetOrganLevel(sysOrganStruct model)
         {
@@ -113,6 +122,25 @@ namespace CRM.Site.Areas.Admin.Controllers
 
 
         }
+        /// <summary>
+        /// 获取该组织节点的所有叶子节点
+        /// </summary>
+        /// <param name="osid"></param>
+        /// <returns></returns>
+        protected List<sysOrganStruct> GetLeafIds(int osid)
+        {
+            List<sysOrganStruct> osids=new List<sysOrganStruct>();
+            var tempmodel = organSer.QueryWhere(o => o.osParentID == osid);
+            foreach (var os1   in tempmodel)
+            {
+                osids.Add(os1);
+               osids.AddRange(GetLeafIds(os1.osID));  
+            }
+            
+
+
+            return osids;
+        } 
 
     }
 }
