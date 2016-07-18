@@ -33,11 +33,11 @@
         function CreateGrid(itemjson) {
             gridd = $("#maingrid4").ligerGrid({
                 columns: [
-                    { display: '名称', name: 'osName', id: 'id1', align: 'left', width: 120 },
+                    { display: '名称', name: 'osName', id: 'id1', align: 'left', width: '50%' },
                     { display: '编码', name: 'osCode', minWidth: 60 },
                     { display: '类别', name: 'KName', width: 150, align: 'left' },
                     { display: '别名', name: 'osShortName' },
-                    { display: '状态', name: 'osStatus' ,render:f_renderBool}
+                    { display: '状态', name: 'osStatus', width: 60, render: f_renderBool }
                 ],
                 tree: {
                     //todo 这个id不能和name一样，只能重新换一个
@@ -56,6 +56,7 @@
                         value: $("#kname").val()
                     }
                 ],
+                usePager:false,
                 //这个高度也必须写。要不然不出滚动条
                 height: '100%',
                 method: "post",
@@ -82,11 +83,11 @@
 
         function add() {
             winopen = $.ligerDialog.open({
-                height: 250,
-                width: 500,
+                height: 350,
+                width: 400,
                 isResize: true,
-                url: '@Url.Action("Add")'
-            });
+                url: '@Url.Action("add","OrganStruct")'
+            })
             var winedit;
         }
 

@@ -18,7 +18,7 @@
         } else {
             $.ligerDialog.error("未知错误！");
         }
-        GetFunctionsByUser
+        
     },
     getFunctionByPermiss:function(url,callback) {
         $.post('/admin/Function/GetFunctionsByUser', { url: url }, function (itemobject, status) {
