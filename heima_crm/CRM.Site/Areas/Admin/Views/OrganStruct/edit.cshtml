@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "edit";
-    Layout = "~/Areas/Admin/Views/AdminHome/_LayoutadminHomecshtml.cshtml";
+   
 }
 
 <h2>edit</h2>
@@ -20,8 +20,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.osParentID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.osParentID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.osParentID, "", new { @class = "text-danger" })
+                @*todo 如果换成强类型的dropdownlist会报不存在键的错误,
+                asdasdsaasd
+                asdas*@
+                @Html.DropDownList("osParentID", ViewData["pidd"] as IEnumerable<SelectListItem>)
+                @Html.ValidationMessageFor(model => model.osParentID, "", new {@class = "text-danger"})
             </div>
         </div>
 
@@ -81,37 +84,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.osCreatorID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.osCreatorID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.osCreatorID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.osCreateTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.osCreateTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.osCreateTime, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.osUpdateID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.osUpdateID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.osUpdateID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.osUpdateTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.osUpdateTime, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.osUpdateTime, "", new { @class = "text-danger" })
-            </div>
-        </div>
+       
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

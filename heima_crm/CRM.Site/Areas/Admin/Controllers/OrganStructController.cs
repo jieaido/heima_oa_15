@@ -93,8 +93,17 @@ namespace CRM.Site.Areas.Admin.Controllers
             return null;
         }
 
-        public ActionResult edit()
+        public ActionResult edit(int id)
         {
+            var modellevel = organSer.QueryWhere(o => o.osID == id).FirstOrDefault().osLevel;
+            var result = from or1 in organSer.QueryWhere(o => o.osLevel < modellevel)
+                select new SelectListItem()
+                {
+                    
+                    Text = or1.osName,
+                    Value = or1.osID.ToString()
+                };
+            ViewData.Add("pidd",result);
             return View();
         }
 

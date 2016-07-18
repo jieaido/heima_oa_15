@@ -98,12 +98,12 @@
                 alert("请选择行！");
                 return;
             }
-            var kid = row.KID;
+            var kid = row.osID;
 
             winedit = $.ligerDialog.open({
                 height: 250,
                 width: 500,
-                url: '@Url.Action("Edit", "KeyVal")' + '/' + kid
+                url: '@Url.Action("Edit", "OrganStruct")' + '/' + kid
             });
         }
 
