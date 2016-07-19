@@ -16,49 +16,65 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.osID)
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.osParentID)</td>
+                <td>@Html.DropDownList("osParentID", ViewData["pidd"] as IEnumerable<SelectListItem>)</td>
+                <td>@Html.ValidationMessageFor(model => model.osParentID, "", new { @class = "text-danger" })</td>
+            </tr> 
+            <tr>
+                <td>@Html.LabelFor(model => model.osName)</td>
+                <td>@Html.EditorFor(model => model.osName)</td>
+                <td>@Html.ValidationMessageFor(model => model.osName, "")</td>
+            </tr> 
+            <tr>
+                <td>@Html.LabelFor(model => model.osCateID)</td>
+                <td>@Html.EditorFor(model => model.osCateID)</td>
+                <td>@Html.ValidationMessageFor(model => model.osName, "")</td>
+            </tr> <tr>
+                <td>@Html.LabelFor(model => model.osShortName)</td>
+                <td>@Html.EditorFor(model => model.osShortName)</td>
+                <td>@Html.ValidationMessageFor(model => model.osShortName, "")</td>
+            </tr> <tr>
+                <td>@Html.LabelFor(model => model.osCateID)</td>
+                <td>@Html.EditorFor(model => model.osCateID)</td>
+                <td>@Html.ValidationMessageFor(model => model.osName, "")</td>
+            </tr> <tr>
+                <td>@Html.LabelFor(model => model.osCateID)</td>
+                <td>@Html.EditorFor(model => model.osCateID)</td>
+                <td>@Html.ValidationMessageFor(model => model.osName, "")</td>
+            </tr> <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr> <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr> <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr> <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr> <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr> <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+      
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.osParentID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*todo 如果换成强类型的dropdownlist会报不存在键的错误,
-                asdasdsaasd
-                asdas*@
-                @Html.DropDownList("osParentID", ViewData["pidd"] as IEnumerable<SelectListItem>)
-                @Html.ValidationMessageFor(model => model.osParentID, "", new {@class = "text-danger"})
-            </div>
-        </div>
+        
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.osName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.osName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.osName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.osCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.osCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.osCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.osCateID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.osCateID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.osCateID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.osLevel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.osLevel, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.osLevel, "", new { @class = "text-danger" })
-            </div>
-        </div>
+       
+      
 
         <div class="form-group">
             @Html.LabelFor(model => model.osShortName, htmlAttributes: new { @class = "control-label col-md-2" })
