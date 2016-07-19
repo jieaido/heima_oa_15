@@ -7,109 +7,62 @@
 
 <h2>edit</h2>
 
-@using (Html.BeginForm())
+@using (Ajax.BeginForm("edit","OrganStruct",new AjaxOptions()
+{
+    HttpMethod = "post",
+    OnSuccess = "success"
+
+},new {id="form1",@class= "l-form" }))
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+   
         <h4>sysOrganStruct</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.osID)
-        <table>
+        <table class="l-table-edit">
             <tr>
-                <td>@Html.LabelFor(model => model.osParentID)</td>
-                <td>@Html.DropDownList("osParentID", ViewData["pidd"] as IEnumerable<SelectListItem>)</td>
-                <td>@Html.ValidationMessageFor(model => model.osParentID, "", new { @class = "text-danger" })</td>
+                <td class="l-table-edit-td">@Html.LabelFor(model => model.osParentID)</td>
+                <td class="l-table-edit-td">@Html.DropDownList("osParentID", ViewData["pidd"] as IEnumerable<SelectListItem>, new { htmlAttributes = new { @class = "l-text" } } )</td>
+                <td class="l-table-edit-td">@Html.ValidationMessageFor(model => model.osParentID, "", new { @class = "text-danger" })</td>
             </tr> 
             <tr>
-                <td>@Html.LabelFor(model => model.osName)</td>
-                <td>@Html.EditorFor(model => model.osName)</td>
+                <td class="l-table-edit-td">@Html.LabelFor(model => model.osName)</td>
+                <td class="l-table-edit-td">@Html.EditorFor(model => model.osName, new { htmlAttributes = new { @class = "l-text" } })</td>
                 <td>@Html.ValidationMessageFor(model => model.osName, "")</td>
             </tr> 
             <tr>
-                <td>@Html.LabelFor(model => model.osCateID)</td>
-                <td>@Html.EditorFor(model => model.osCateID)</td>
+                <td class="l-table-edit-td">@Html.LabelFor(model => model.osCateID)</td>
+                                
+         @* todo ViewData的键值对名称最好是模型字段名称一样，要不然会报不存在具有。。。键值对的错误*@
+                <td class="l-table-edit-td">@Html.DropDownListFor(model=>model.osCateID,ViewData["osCateID"] as List<SelectListItem>)</td>
                 <td>@Html.ValidationMessageFor(model => model.osName, "")</td>
             </tr> <tr>
-                <td>@Html.LabelFor(model => model.osShortName)</td>
-                <td>@Html.EditorFor(model => model.osShortName)</td>
+                <td class="l-table-edit-td">@Html.LabelFor(model => model.osShortName)</td>
+                <td class="l-table-edit-td">@Html.EditorFor(model => model.osShortName)</td>
                 <td>@Html.ValidationMessageFor(model => model.osShortName, "")</td>
             </tr> <tr>
-                <td>@Html.LabelFor(model => model.osCateID)</td>
-                <td>@Html.EditorFor(model => model.osCateID)</td>
-                <td>@Html.ValidationMessageFor(model => model.osName, "")</td>
+                <td class="l-table-edit-td">@Html.LabelFor(model => model.osRemark)</td>
+                <td class="l-table-edit-td">@Html.EditorFor(model => model.osRemark)</td>
+                <td>@Html.ValidationMessageFor(model => model.osRemark, "")</td>
             </tr> <tr>
-                <td>@Html.LabelFor(model => model.osCateID)</td>
-                <td>@Html.EditorFor(model => model.osCateID)</td>
-                <td>@Html.ValidationMessageFor(model => model.osName, "")</td>
-            </tr> <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr> <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr> <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr> <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr> <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr> <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+                <td class="l-table-edit-td">@Html.LabelFor(model => model.osStatus)</td>
+                <td class="l-table-edit-td">
+                    @Html.RadioButtonFor(model => model.osStatus, 1, new { @name = "osStatus",@checked=true })<span>启用</span>
+                    @Html.RadioButtonFor(model => model.osStatus, 0, new { @name = "osStatus" }) <span> 停用 </span>
+                </td>
+                <td>@Html.ValidationMessageFor(model => model.osStatus, "")</td>
+            </tr> 
         </table>
-      
-
-        
-
-       
-      
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.osShortName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.osShortName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.osShortName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.osRemark, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.osRemark, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.osRemark, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.osStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.osStatus, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.osStatus, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-       
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+        <input type="submit" value="提交" id="Button1" class="l-button l-button-submit" />
+        <input type="reset" value="重置" class="l-button l-button-reset" />
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@section scripts{
+    <script type="text/javascript">
+       
+        $(function () {
+            $("#form1").ligerForm();
+        });
+    </script>
+}

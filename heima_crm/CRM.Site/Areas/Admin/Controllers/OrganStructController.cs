@@ -44,21 +44,7 @@ namespace CRM.Site.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult add()
         {
-            var list = new List<SelectListItem>();
-            foreach (var sysKeyValue in keyvalSer.QueryWhere(k => k.KType == 1))
-            {
-                var tempitem = new SelectListItem
-                {
-                    Text = sysKeyValue.KName,
-                    Value = sysKeyValue.KID.ToString()
-                };
-                list.Add(tempitem);
-            }
-            if (list.Count > 0)
-            {
-                list[0].Selected = true;
-            }
-            ViewData.Add("catelid", list);
+            SetCatelid();
             var listOrgan = new List<SelectListItem>();
             listOrgan.Add(new SelectListItem {Text = "顶级", Value = "-1"});
             foreach (var organ in organSer.QueryWhere(o => true))
@@ -73,6 +59,14 @@ namespace CRM.Site.Areas.Admin.Controllers
             ViewData.Add("pid", listOrgan);
 
             return View();
+        }
+
+        private void SetCatelid()
+        {
+          
+            var list=new SelectList(keyvalSer.QueryWhere(k => k.KType == 1),"KID","KName",1);
+            list.FirstOrDefault().Selected = true;
+            ViewData.Add("osCateID", list);
         }
 
         [HttpPost]
@@ -93,7 +87,7 @@ namespace CRM.Site.Areas.Admin.Controllers
             return null;
         }
 
-        public ActionResult edit(int id)
+        public ActionResult Edit(int id)
         {
             var modellevel = organSer.QueryWhere(o => o.osID == id).FirstOrDefault().osLevel;
             var result = from or1 in organSer.QueryWhere(o => o.osLevel < modellevel)
@@ -104,11 +98,14 @@ namespace CRM.Site.Areas.Admin.Controllers
                     Value = or1.osID.ToString()
                 };
             ViewData.Add("pidd",result);
+
+
+            SetCatelid();
             return View();
         }
 
         [HttpPost]
-        public ActionResult edit(sysOrganStruct model)
+        public ActionResult Edit(sysOrganStruct model)
         {
             return null;
         }
