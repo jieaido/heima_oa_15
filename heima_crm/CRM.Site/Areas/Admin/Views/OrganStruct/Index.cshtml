@@ -112,18 +112,22 @@
         }
 
         function del() {
-            var rows = gridd.getSelectedRows();
+            var rows = gridd.getSelectedRow();
 
-            var ids = "";
-            for (var i = 0; i < rows.length; i++) {
-                ids += rows[i].KID + ',';
-            }
+            var ids = rows.osID;
 
-            $.post('@Url.Action("Delete", "KeyVal")', { id: ids }, function(ajaxMsg, status) {
-                CRMHelper.CheckStatus(ajaxMsg, function() {
-                    gridd.reload();
-                });
-            })
+            $.ligerDialog.confirm('确认删除吗?', true, function (yes) {
+                if (yes) {
+                    $.post('@Url.Action("del", "OrganStruct")', { id: ids }, function(ajaxMsg, status) {
+                        CRMHelper.CheckStatus(ajaxMsg, function() {
+                            gridd.reload();
+                        });
+                    });
+                }
+                
+            });
+
+           
 
 
         }

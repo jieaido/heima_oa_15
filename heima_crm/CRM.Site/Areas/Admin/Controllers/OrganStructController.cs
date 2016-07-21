@@ -181,7 +181,19 @@ namespace CRM.Site.Areas.Admin.Controllers
 
 
             return osids;
-        } 
+        }
 
+        public ActionResult del(int id)
+        {
+            var result = GetLeafIds(id);
+            foreach (var sysOrganStruct in result)
+            {
+                organSer.Delete(sysOrganStruct);
+            }
+            organSer.Delete(organSer.QueryWhere(o => o.osID == id).FirstOrDefault());
+            organSer.SaveChanges();
+            
+            return  AjaxSuccess("删除成功!");
+        }
     }
 }
