@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using CRM.IServer;
 using CRM.Model;
@@ -89,25 +91,58 @@ namespace CRM.Site.Areas.Admin.Controllers
 
         public ActionResult Edit(int id)
         {
-            var modellevel = organSer.QueryWhere(o => o.osID == id).FirstOrDefault().osLevel;
-            var result = from or1 in organSer.QueryWhere(o => o.osLevel < modellevel)
-                select new SelectListItem()
+            var modellevel = GetLeafIds(id);
+
+            var result = from or1 in organSer.QueryWhere(p => true)
+                where !modellevel.Contains(or1)
+                select new
                 {
-                    
+
                     Text = or1.osName,
                     Value = or1.osID.ToString()
                 };
-            ViewData.Add("pidd",result);
-
-
+            var enumerable = result as IList ?? result.ToList();
+            enumerable.Add(new {Text = "顶级", Value = "-1"});
+            var ss=new SelectList(enumerable,"Value","Text");
+           
+            ViewData.Add("pidd", ss);
             SetCatelid();
-            return View();
+            var os = organSer.QueryWhere(s => s.osID == id).FirstOrDefault();
+            return View(os);
         }
 
         [HttpPost]
         public ActionResult Edit(sysOrganStruct model)
         {
-            return null;
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    var ss= from ms in ModelState.Values
+                    select new
+                    {
+                        ms.Errors
+                    };
+                    return AjaxFail(Json(ss).Data.ToString());
+
+                }
+                model.osUpdateTime = DateTime.Now;
+                model.osUpdateID = UserManger.GetUserInfoName().uID;
+                model.osLevel = GetOrganLevel(model.osParentID);
+                organSer.AddOrUpdate(model);
+                organSer.SaveChanges();
+
+                return AjaxSuccess("编辑成功!");
+
+            }
+            catch (Exception ex)
+            {
+
+                return  AjaxError(ex);
+            }
+
+
+
         }
 
         protected int GetOrganLevel(sysOrganStruct model)

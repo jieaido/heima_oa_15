@@ -12,6 +12,7 @@
          
         } else if (ajaxmsg.Status=="0") {
             $.ligerDialog.success(ajaxmsg.msg);
+            
             callback();
         } else if (ajaxmsg.Status=="3") {
             $.ligerDialog.error(ajaxmsg.msg);

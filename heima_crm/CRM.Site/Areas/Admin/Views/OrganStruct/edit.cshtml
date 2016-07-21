@@ -21,6 +21,8 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.osID)
+        @Html.HiddenFor(model => model.osCreatorID)
+        @Html.HiddenFor(model => model.osCreateTime)
         <table class="l-table-edit">
             <tr>
                 <td class="l-table-edit-td">@Html.LabelFor(model => model.osParentID)</td>
@@ -38,11 +40,18 @@
          @* todo ViewData的键值对名称最好是模型字段名称一样，要不然会报不存在具有。。。键值对的错误*@
                 <td class="l-table-edit-td">@Html.DropDownListFor(model=>model.osCateID,ViewData["osCateID"] as List<SelectListItem>)</td>
                 <td>@Html.ValidationMessageFor(model => model.osName, "")</td>
-            </tr> <tr>
+            </tr>
+            <tr>
                 <td class="l-table-edit-td">@Html.LabelFor(model => model.osShortName)</td>
                 <td class="l-table-edit-td">@Html.EditorFor(model => model.osShortName)</td>
                 <td>@Html.ValidationMessageFor(model => model.osShortName, "")</td>
-            </tr> <tr>
+            </tr>
+            <tr>
+                <td class="l-table-edit-td">@Html.LabelFor(model => model.osCode)</td>
+                <td class="l-table-edit-td">@Html.EditorFor(model => model.osCode)</td>
+                <td>@Html.ValidationMessageFor(model => model.osCode, "")</td>
+            </tr>
+             <tr>
                 <td class="l-table-edit-td">@Html.LabelFor(model => model.osRemark)</td>
                 <td class="l-table-edit-td">@Html.EditorFor(model => model.osRemark)</td>
                 <td>@Html.ValidationMessageFor(model => model.osRemark, "")</td>
@@ -64,5 +73,12 @@
         $(function () {
             $("#form1").ligerForm();
         });
+        function success(ajaxMsg) {
+            CRMHelper.CheckStatus(ajaxMsg, function () {
+                window.parent.gridd.reload();
+                window.parent.winedit.hide();
+            });
+
+        }
     </script>
 }
